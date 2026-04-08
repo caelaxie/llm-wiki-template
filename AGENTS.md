@@ -105,7 +105,8 @@ Use these page types for markdown content pages:
 
 ### Frontmatter
 
-All markdown content pages should begin with this minimal YAML frontmatter:
+All markdown content pages should begin with YAML frontmatter. This example
+shows the shared fields common to every page type:
 
 ```yaml
 ---
@@ -126,14 +127,19 @@ Rules:
   pages that materially support the page.
 - Use `[[raw/...]]` for raw-source references in `sources`.
 - Use bare `[[slug]]` for wiki-page references in `sources`.
+- All page types require `title`, `type`, `sources`, `created_at`, and
+  `updated_at`.
 - `created_at` is the page creation date in `YYYY-MM-DD` format.
 - `updated_at` is the date of the last material edit in `YYYY-MM-DD` format.
-- `source` pages may additionally include `raw_sha256`, which stores the
-  SHA-256 digest of the single canonical `[[raw/...]]` file that backs the page.
-- `raw_sha256` is maintained by the dedicated `refresh` workflow and should not
-  appear on `entity`, `concept`, or `synthesis` pages.
+- `source` pages must include `raw_sha256`, which stores the SHA-256 digest of
+  the single canonical `[[raw/...]]` file that backs the page.
+- Newly created `source` pages must include `raw_sha256` at creation time.
+- The creator of a new `source` page must compute and set `raw_sha256`.
+- The dedicated `refresh` workflow reconciles `raw_sha256` later and may
+  bootstrap a missing value on an existing page during refresh.
+- `raw_sha256` must not appear on `entity`, `concept`, or `synthesis` pages.
 
-Example:
+Example non-source page frontmatter:
 
 ```yaml
 ---
@@ -147,7 +153,7 @@ updated_at: "2026-04-07"
 ---
 ```
 
-Example `source` page with `raw_sha256`:
+Canonical `source` page frontmatter:
 
 ```yaml
 ---
@@ -298,7 +304,8 @@ When the user asks to ingest a new source:
    questions.
 6. Check what already exists before creating anything new. Search for likely
    entities, concepts, syntheses, and alternate phrasings.
-7. Create or update the corresponding `source` page in `wiki/sources/`.
+7. Create or update the corresponding `source` page in `wiki/sources/`. If the
+   page is newly created, include `raw_sha256` in its frontmatter immediately.
 8. Update the most relevant `entity`, `concept`, and `synthesis` pages when the
    source materially changes them.
 9. Create new supporting pages only when they meet the create-vs-update rules
@@ -311,6 +318,8 @@ When the user asks to ingest a new source:
 13. Append an entry to `wiki/log.md` describing the ingest.
 14. Update `updated_at` on every content page materially changed during ingest.
 15. Set `created_at` and `updated_at` when creating a new content page.
+16. When creating a new `source` page, compute and include `raw_sha256` in the
+    initial frontmatter instead of relying on a later refresh to add it.
 
 For batch ingest:
 
@@ -346,8 +355,9 @@ When the user asks for a refresh or raw-drift check:
 1. Run the dedicated `refresh` command instead of `lint`.
 2. `refresh` scans `source` pages and resolves each page's single canonical
    `[[raw/...]]` backing file.
-3. `refresh` computes the SHA-256 of that raw file and initializes or updates
-   `raw_sha256` on the `source` page when needed.
+3. `refresh` computes the SHA-256 of that raw file and ensures `raw_sha256` is
+   present and current on the `source` page, bootstrapping a missing value when
+   needed.
 4. `refresh` identifies changed `source` pages and computes downstream
    dependency closures using only `sources` frontmatter links.
 5. `refresh` prints a deterministic ordered report of the pages that should be
@@ -364,6 +374,8 @@ For dependency resolution during `refresh`:
 - Body wikilinks remain navigational and do not create refresh dependencies.
 - `source` pages must contain exactly one canonical `[[raw/...]]` reference in
   `sources`.
+- `source` pages must carry `raw_sha256`; `refresh` can backfill a missing hash
+  on an existing page without failing fast.
 
 ### Lint
 
@@ -378,15 +390,16 @@ When the user asks for a lint or health check:
    integrated.
 6. Identify research gaps or follow-up questions that would improve the wiki.
 7. Identify markdown content pages with missing or malformed frontmatter.
-8. Identify `created_at` or `updated_at` values that are not in `YYYY-MM-DD`
+8. Identify `source` pages with missing or malformed `raw_sha256`.
+9. Identify `created_at` or `updated_at` values that are not in `YYYY-MM-DD`
    format.
-9. Identify filenames that violate lowercase `kebab-case`.
-10. Identify content pages stored outside the four typed content directories.
-11. Identify near-duplicate pages caused by slug drift or weak disambiguation.
-12. Identify slug collisions that would make bare `[[slug]]` links ambiguous.
-13. Identify `wiki/index.md` entries missing category placement, links, or
+10. Identify filenames that violate lowercase `kebab-case`.
+11. Identify content pages stored outside the four typed content directories.
+12. Identify near-duplicate pages caused by slug drift or weak disambiguation.
+13. Identify slug collisions that would make bare `[[slug]]` links ambiguous.
+14. Identify `wiki/index.md` entries missing category placement, links, or
     one-line summaries.
-14. Record the lint pass in `wiki/log.md` if it materially affects the wiki or
+15. Record the lint pass in `wiki/log.md` if it materially affects the wiki or
     future work.
 
 `lint` remains a health check. It should not be repurposed to perform raw-drift refresh or cascading page rewrites.
@@ -439,6 +452,8 @@ Before finishing any wiki-changing task, verify that:
 - every touched content page lives in the correct typed directory
 - wiki-page links use bare `[[slug]]` wherever possible
 - raw-source references use `[[raw/...]]`
+- every touched `source` page includes `raw_sha256`, and non-`source` pages do
+  not include it
 - no content-page slug collides with another content-page slug
 - new pages were created only when they were justified over updating an existing
   page
