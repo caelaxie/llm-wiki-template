@@ -128,6 +128,10 @@ Rules:
 - Use bare `[[slug]]` for wiki-page references in `sources`.
 - `created_at` is the page creation date in `YYYY-MM-DD` format.
 - `updated_at` is the date of the last material edit in `YYYY-MM-DD` format.
+- `source` pages may additionally include `raw_sha256`, which stores the
+  SHA-256 digest of the single canonical `[[raw/...]]` file that backs the page.
+- `raw_sha256` is maintained by the dedicated `refresh` workflow and should not
+  appear on `entity`, `concept`, or `synthesis` pages.
 
 Example:
 
@@ -138,6 +142,20 @@ type: "synthesis"
 sources:
   - "[[tailscale-how-it-works]]"
   - "[[wireguard]]"
+created_at: "2026-04-07"
+updated_at: "2026-04-07"
+---
+```
+
+Example `source` page with `raw_sha256`:
+
+```yaml
+---
+title: "WireGuard Whitepaper"
+type: "source"
+sources:
+  - "[[raw/wireguard-whitepaper.md]]"
+raw_sha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 created_at: "2026-04-07"
 updated_at: "2026-04-07"
 ---
@@ -321,6 +339,32 @@ When the user asks a question:
 7. If the answer is trivial or one-off, answer directly without forcing a new
    page.
 
+### Refresh
+
+When the user asks for a refresh or raw-drift check:
+
+1. Run the dedicated `refresh` command instead of `lint`.
+2. `refresh` scans `source` pages and resolves each page's single canonical
+   `[[raw/...]]` backing file.
+3. `refresh` computes the SHA-256 of that raw file and initializes or updates
+   `raw_sha256` on the `source` page when needed.
+4. `refresh` identifies changed `source` pages and computes downstream
+   dependency closures using only `sources` frontmatter links.
+5. `refresh` prints a deterministic ordered report of the pages that should be
+   refreshed next.
+6. `refresh` must not rewrite dependent wiki pages, `wiki/index.md`, or
+   `wiki/log.md`.
+7. After `refresh`, the agent may rewrite the reported pages, update
+   `updated_at` only for material content changes, then update `wiki/index.md`
+   and `wiki/log.md` if the wiki changed materially.
+
+For dependency resolution during `refresh`:
+
+- If page `A` lists `[[B]]` in `sources`, `A` depends on `B`.
+- Body wikilinks remain navigational and do not create refresh dependencies.
+- `source` pages must contain exactly one canonical `[[raw/...]]` reference in
+  `sources`.
+
 ### Lint
 
 When the user asks for a lint or health check:
@@ -344,6 +388,8 @@ When the user asks for a lint or health check:
     one-line summaries.
 14. Record the lint pass in `wiki/log.md` if it materially affects the wiki or
     future work.
+
+`lint` remains a health check. It should not be repurposed to perform raw-drift refresh or cascading page rewrites.
 
 For larger wikis, prefer programmatic scans for link graphs, frontmatter shape,
 and index completeness instead of relying on manual inspection alone.
