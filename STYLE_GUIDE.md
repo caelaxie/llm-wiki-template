@@ -1,8 +1,16 @@
 # STYLE_GUIDE.md
 
 This file defines the writing and presentation rules for the wiki in `wiki/`.
-It is inspired by the MediaWiki documentation style guide, especially its
-guidance on audience and content, language, and structuring pages.
+It is a prose contract, not a schema contract.
+
+This guide aligns the wiki's default writing behavior with the current public
+OpenAI Model Spec as adapted for durable markdown pages rather than live chat
+replies.
+
+It imports only the Model Spec traits that cleanly translate into writing and
+presentation. It does not import safety policy, refusal policy, chain-of-
+command mechanics, or voice/audio/video behavior except where they imply a
+useful prose trait such as honesty, directness, or explicit uncertainty.
 
 `AGENTS.md` remains the authoritative contract for repo structure, workflow,
 page types, frontmatter, and required section families. If this file conflicts
@@ -11,213 +19,354 @@ with `AGENTS.md`, follow `AGENTS.md`.
 ## Purpose
 
 Use this guide when creating or materially updating wiki prose. The goal is to
-make the wiki clearer, easier to scan, and easier to understand for readers
-with different technical and cultural backgrounds.
+make pages read with the same default strengths expected from strong ChatGPT
+responses, translated into a persistent wiki format:
+
+- clear and direct
+- suitably professional
+- warm without sounding casual
+- thorough but efficient
+- concise where possible
+- honest about uncertainty, limits, and assumptions
+- easy to scan without becoming shallow
 
 This guide does not change the repo schema. It does not add metadata, new page
 types, or new directories.
 
-## Before writing
+## Agent quick start
+
+If you need a fast default workflow, use this order:
+
+1. Identify the page type from `AGENTS.md`.
+2. Write a lead of one or two short paragraphs.
+3. Put the main answer, definition, or contribution in the lead.
+4. Fill the required section families in the order implied by `AGENTS.md`.
+5. Make each paragraph do one main job: define, explain, support, or qualify.
+6. Add explicit uncertainty where the evidence is partial, mixed, or dated.
+7. Cut filler, repeated paraphrase, and decorative transitions.
+8. Check that the page still reads like a wiki page, not a chat reply.
+
+If you are unsure how to start, write these three things first:
+
+- what the page is about
+- why it matters in this wiki
+- the main answer or takeaway
+
+## Default decisions for agents
+
+When a choice is unclear, prefer these defaults:
+
+- Prefer a short paragraph over a bullet list unless the content is clearly
+  list-shaped.
+- Prefer a direct claim over a cautious setup sentence unless the evidence is
+  genuinely uncertain.
+- Prefer defining the term now over linking away and assuming the reader will
+  click.
+- Prefer one concrete example over several abstract sentences.
+- Prefer preserving an open question over implying certainty that the sources do
+  not support.
+- Prefer cutting a repeated sentence over keeping it for emphasis.
+- Prefer the clearest wording over the most technical wording unless precision
+  requires the technical term.
+
+## Writing model
 
 Write for mixed technical readers. Assume curiosity and some technical
-literacy, but do not assume the reader already knows every acronym, protocol,
-or workflow pattern.
+literacy, but do not assume deep familiarity with every acronym, protocol, or
+workflow in the corpus.
 
 Before writing, identify:
 
-- who the page is for
-- what the reader is trying to learn, understand, or verify
+- what the page needs to help the reader do
 - what the reader likely already knows
-- what background the reader still needs
+- what background is still needed
 - whether the page mainly summarizes a source, explains an entity, explains a
   concept, or answers a synthesis question
 
-Choose depth based on the page's likely audience:
+Choose depth to match the page's likely use:
 
-- If the page targets readers familiar with the topic, skip basic explanation
-  and move quickly to the key distinctions.
-- If the page may be read by newcomers to the topic, define non-obvious terms
-  on first use and add a short amount of scaffolding before using jargon
-  heavily.
+- If readers likely know the topic, move quickly to distinctions, evidence, and
+  tensions.
+- If readers may be new to the topic, define non-obvious terms on first use and
+  add only the minimum background needed to follow the page.
 
-Reduce hidden background assumptions:
+Do not write as if every page has the same audience. Adapt explanation depth,
+examples, and section density to the likely reader objective.
 
-- Do not assume the reader knows the local jargon of one field unless the page
-  clearly targets that field.
-- If the page expects prior knowledge of networking, Kubernetes,
-  cryptography, or agent-runtime concepts, say so in the lead.
-- Introduce one unfamiliar idea at a time instead of stacking several new
-  concepts into the same paragraph.
+## Core principles
 
-## Core writing rules
+Answer early:
 
-State the page's purpose early. A reader should understand within the opening
-lines what the page covers and why it exists.
+- State the main point in the lead or first section, not after several setup
+  paragraphs.
+- On synthesis pages, give the synthesized answer before the supporting
+  reasoning.
+- On source pages, summarize the source's contribution before listing details.
 
-Define before discussing:
+Define before nuance:
 
-- Define the main term in one plain sentence before discussing nuance,
-  disagreements, or implementation details.
-- If readers are likely to confuse nearby terms, explain the distinction early.
-- On concept and entity pages, define the thing before expanding into tensions,
-  history, or comparison.
+- Define the main term in plain language before discussing disagreements,
+  implementation detail, or history.
+- If two nearby ideas are easy to confuse, distinguish them early.
+- Do not assume the link itself does the explanatory work.
 
-Lead with the takeaway:
+Be clear and direct:
 
-- State the main answer or summary early enough that a skimming reader can
-  follow the page without reading every section.
-- On synthesis pages, answer the question before expanding the reasoning.
-- On source pages, summarize the source before listing evidence.
+- Prefer direct claims over throat-clearing such as "it is worth noting" or
+  "the wiki's current answer is."
+- Prefer concrete nouns and verbs over vague abstractions.
+- Name the system, source, actor, or concept directly when the referent could
+  be unclear.
 
-Use examples when abstraction alone would be hard to follow:
+Be warm and professional:
 
-- When a concept is hard to picture, include one short example before or
-  alongside the general explanation.
-- Use examples to make unfamiliar terms legible, not to add side topics.
-- Prefer simple examples that match the page's actual subject matter.
+- Sound human, calm, and engaged.
+- Do not sound casual, promotional, or performatively enthusiastic.
+- Do not sound distant, stiff, or bureaucratic.
+- Do not condescend, oversimplify, or write as if the reader is careless.
 
-Explain links, do not hide explanation inside them:
+Be thorough but efficient:
 
-- Do not rely on a link to carry the explanation.
-- A sentence should still make sense if the reader does not open the linked
-  page.
+- Include enough context to make the page useful on first read.
+- Cut repeated setup, repetitive paraphrase, and low-signal filler.
+- Do not turn a simple point into a long explanation just to sound complete.
 
-Preserve uncertainty:
+Express uncertainty honestly:
 
-- When the evidence is mixed, dated, or incomplete, say so directly.
-- Keep tensions explicit instead of burying them inside dense explanation.
-- Do not force a cleaner conclusion than the sources support.
+- State when evidence is mixed, dated, partial, or contested.
+- Name assumptions when the page depends on them.
+- Preserve contradictions and open questions instead of forcing a cleaner
+  conclusion than the sources support.
 
 ## Language
 
 Use plain English:
 
-- Prefer concrete nouns and verbs over abstract framing.
-- Prefer direct claims over throat-clearing such as "the wiki's current answer
-  is" or "it can be argued that" when a simpler sentence is accurate.
-- Define less-common acronyms and terms on first use unless the intended reader
-  would clearly already know them.
+- Prefer familiar wording when it preserves meaning.
+- Define less-common terms and acronyms on first use unless the likely reader
+  clearly already knows them.
+- Prefer specific claims over generalized framing.
 
-Use active, professional, inclusive language:
+Prefer active and concrete sentences:
 
-- Prefer active voice when it keeps responsibility clear.
-- Keep the tone professional, calm, and direct.
-- Use inclusive language.
+- Use active voice when it keeps responsibility clear.
+- Avoid abstract noun stacks and passive constructions that hide the actor.
+- Prefer "Tailscale coordinates peers through a control plane" over
+  "peer coordination is handled through control-plane interaction."
 
-Avoid wording that adds friction without adding meaning:
+Avoid filler and weak framing:
 
-- Avoid vague abstractions and filler.
-- Avoid colloquialisms, jokes, and region-specific turns of phrase.
-- Avoid saying a task or idea is "easy", "simple", or "obvious".
-- Avoid unnecessary negative phrasing when a direct positive instruction or
-  statement is clearer.
+- Avoid jokes, slang, and region-specific turns of phrase.
+- Avoid hedges that weaken a true claim without adding precision.
+- Avoid stock filler such as "in today's world," "it should be noted," or
+  "when it comes to."
+- Avoid saying a task or idea is "easy," "simple," or "obvious."
 
-Prefer stable and concrete references:
+Prefer stable references:
 
-- Prefer absolute dates over relative time words such as "recently" or
-  "currently" when timing matters.
-- Name the specific system, source, or concept instead of using vague pronouns
-  such as "this" or "it" when the referent could be unclear.
+- Use absolute dates when timing matters.
+- Prefer precise names over vague references such as "this" or "it" when the
+  target is ambiguous.
 
-Control sentence and paragraph shape:
-
-- Prefer short to medium paragraphs.
-- Split paragraphs that carry more than one major idea.
-- If a paragraph is hard to skim, rewrite it.
-- If a section introduces three or more mechanisms, phases, or takeaways,
-  prefer a list over a dense paragraph.
-
-## Structuring pages
+## Structure and formatting
 
 Every content page should begin with a short lead immediately after frontmatter
 and before the first section heading.
 
-The lead should usually:
+The lead should usually do four things:
 
-- explain what the page covers
-- signal who the page is most useful for
-- mention any prerequisite context the reader should have
-- state the main takeaway early
+- say what the page covers
+- say why it matters
+- give the main takeaway early
+- name any prerequisite context only if the reader truly needs it
 
-Use sentence-case headings. Keep headings descriptive and consistent.
+Keep pages easy to scan:
 
-- Do not put a heading before the lead.
+- Prefer short paragraphs by default.
+- One paragraph should usually carry one main idea.
+- Split paragraphs that mix explanation, evidence, and caveat in the same
+  block.
+- If a section becomes hard to skim, rewrite it before adding more structure.
+
+Use headings to guide the reader, not decorate the page:
+
+- Use sentence-case headings.
+- Keep headings functional and specific.
 - Do not put links inside headings.
-- Keep heading text functional rather than decorative.
-- Treat the section families in `AGENTS.md` as content requirements, not as
-  fixed title-case heading text.
+- Do not add headings that merely restate the page title.
 
-Keep information flow predictable:
+Use lists only when they improve comprehension:
 
-- Start with orientation, then move into detail.
-- Define before discussing.
-- Contrast easily confused ideas before assuming the reader sees the boundary.
-- Establish significance before diving into nuance.
+- Use bullets for genuinely list-shaped material such as distinct claims,
+  mechanisms, steps, or contrasts.
+- Do not convert normal explanation into bullets just to make the page look
+  structured.
+- If a short paragraph is clearer than a list, use the paragraph.
 
-When possible, arrange sections so a reader can scan from:
+Prefer answer-first flow:
 
-1. what this page is for
-2. the main answer or summary
-3. the supporting detail
-4. open questions and related pages
+1. orient the reader
+2. state the main answer or summary
+3. support it with detail, evidence, or distinctions
+4. preserve unresolved points
+5. link outward to related pages
+
+Avoid chat habits that do not belong in a wiki:
+
+- Do not repeat the topic or question just to start the page.
+- Do not add conversational fillers such as "Sure," "Let's dive in," or
+  "Here's the thing."
+- Do not ask rhetorical follow-up questions inside the page body.
+- Do not write as if the page is a one-turn reply that disappears after reading.
 
 ## Page-type guidance
 
 The required page types and baseline section families are defined in
-`AGENTS.md`. Use the guidance below as a writing overlay, not as a replacement
-for the contract.
+`AGENTS.md`. This section explains how to write them in this style.
+
+For any page type, the default writing sequence is:
+
+1. lead with the answer, definition, or contribution
+2. explain why the page matters
+3. add supporting detail in descending importance
+4. preserve uncertainty and tensions
+5. end with related pages and open questions as required by `AGENTS.md`
 
 ### Source pages
 
-- Use the lead to identify the source, what kind of document it is, and why it
-  matters to this wiki.
-- In the summary section, state the source's main argument or contribution
-  early.
-- In the key takeaways section, favor distinct claims over repetitive
-  restatements.
-- In the evidence or notable details section, highlight concrete examples,
-  evidence, and limitations rather than rewriting the whole source.
+- Use the lead to identify the source, its document type, and why it matters to
+  this wiki.
+- In `## Summary`, state the source's main contribution early and plainly.
+- In `## Key takeaways`, favor distinct claims over paraphrased repetition.
+- In `## Evidence or notable details`, highlight concrete examples, evidence,
+  scope limits, and notable absences rather than rewriting the entire source.
+- In `## Open questions`, preserve what the source leaves unclear, weakly
+  supports, or appears to contradict.
 
 ### Entity pages
 
-- Use the lead to orient the reader to the entity and why it matters here.
-- In the summary section, say what the entity is before describing debates
-  around it.
-- In the role or significance section, explain why the entity matters in the
-  corpus, not only in the outside world.
-- In the current understanding section, group related ideas together.
-- Keep tensions explicit instead of burying them inside dense explanation.
+- Use the lead to say what the entity is and why it matters in this corpus.
+- In `## Summary`, define the entity before describing debates around it.
+- In `## Role or significance`, explain why the entity matters here, not only
+  in the outside world.
+- In `## Current understanding`, group related ideas together and move from the
+  most important points to the qualifying detail.
+- In `## Open questions or tensions`, name unresolved issues directly instead of
+  burying them in surrounding explanation.
 
 ### Concept pages
 
-- Use the lead to define the concept in plain terms before expanding it.
-- In the why it matters section, connect the concept to actual questions the
-  wiki helps answer.
-- In the current understanding section, define boundaries and distinguish the
-  concept from nearby ideas when that helps avoid confusion.
+- Use the lead to define the concept in plain language before expanding it.
+- In `## Summary`, give the core idea in a way a new reader can follow.
+- In `## Why it matters`, connect the concept to actual questions the wiki helps
+  answer.
+- In `## Current understanding`, distinguish the concept from nearby terms when
+  that prevents confusion.
+- In `## Open questions or tensions`, state where the concept's boundaries,
+  usefulness, or interpretation remain unsettled.
 
 ### Synthesis pages
 
-- Use the lead to restate the question and tell the reader what kind of answer
+- Use the lead to restate the question or thesis and signal the kind of answer
   the page gives.
-- In the question or thesis section, phrase the question clearly and
-  concretely.
-- In the synthesized answer section, give the answer early, then support it.
-- Keep supporting reasoning ordered and easy to scan.
-- Use the unresolved points section to preserve what the wiki still does not
-  know.
+- In `## Question or thesis`, phrase the question clearly and concretely.
+- In `## Synthesized answer`, answer first, then justify.
+- In `## Citations or supporting pages`, order support so a reader can follow
+  the reasoning without reconstructing it from links alone.
+- In `## Unresolved points`, keep the remaining uncertainty explicit.
+
+## Anti-patterns
+
+Avoid academic throat-clearing:
+
+- Bad: several sentences of setup before the page states its actual claim
+- Better: one orienting sentence, then the answer or definition
+
+Avoid assistant-style filler:
+
+- Bad: "Sure, let's break this down" or "Here's the key idea"
+- Better: start with the idea itself
+
+Avoid repetitive paraphrase:
+
+- Bad: repeating the same point in the lead, summary, and first body paragraph
+  with only minor wording changes
+- Better: let each section add something new
+
+Avoid dense multi-idea paragraphs:
+
+- Bad: one paragraph that defines the topic, gives history, adds a caveat, and
+  compares it to another concept
+- Better: separate the definition, support, and tension
+
+Avoid generic bullets that replace explanation:
+
+- Bad: a long list of vague phrases with no connective reasoning
+- Better: a short list only when the items are truly distinct and self-explaining
+
+Avoid vague claims:
+
+- Bad: "This is important because it affects many things"
+- Better: say what it affects, how, and for whom
+
+## Examples
+
+Good lead for a concept page:
+
+```md
+Zero-trust networking is a security model that treats network location as weak
+evidence of trust. In this wiki, it matters because several systems replace
+perimeter-based access rules with identity- and policy-based decisions.
+```
+
+Bad lead for a concept page:
+
+```md
+In today's rapidly evolving security landscape, zero-trust networking has
+become an increasingly important topic that many organizations are discussing.
+```
+
+Good opening for a synthesis section:
+
+```md
+The short answer is that Tailscale builds a mesh VPN by combining WireGuard
+tunnels with a coordination service that helps peers discover each other and
+exchange connection metadata.
+```
+
+Bad opening for a synthesis section:
+
+```md
+To answer this question fully, it is first necessary to understand several
+background concepts and implementation details that shape the broader context.
+```
+
+Good uncertainty statement:
+
+```md
+The source strongly supports the control-plane claim, but it is less specific
+about how policy evaluation behaves during network partition events.
+```
+
+Bad uncertainty statement:
+
+```md
+There are many nuances here, and the answer is complex.
+```
 
 ## Practical checks
 
 Before finishing a material writing pass, check:
 
-- the lead exists and orients the reader before the first heading
-- the page purpose is clear within the opening lines
-- the page states any important prerequisite background instead of assuming it
-- the first screen contains the main takeaway, not only setup
-- non-obvious terms are introduced with enough context
-- nearby terms are distinguished when confusion is likely
-- examples are used where abstraction alone would be hard to follow
-- headings are in sentence case
-- the main answer or summary appears before deep detail
-- the prose is direct and free of filler
+- the page could be drafted by following the quick-start workflow without extra
+  interpretation
+- the lead exists and states the page's main value early
+- the page defines the topic before diving into nuance
+- the first screen contains a real answer or summary, not only setup
+- paragraphs are short enough to scan comfortably
+- bullets are used only where they improve comprehension
+- headings are in sentence case and do real navigational work
+- repeated paraphrase has been removed
+- the prose sounds human and professional, not stiff or chatty
+- uncertainty, assumptions, and evidence limits are explicit where needed
+- the page still reads like durable wiki prose rather than a transient chat reply
