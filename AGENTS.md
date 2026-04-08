@@ -212,6 +212,15 @@ The lists below define the baseline required section families for each page
 type. `STYLE_GUIDE.md` refines how those sections should be introduced,
 sequenced, and written.
 
+Every content page must begin with a short unheaded lead immediately after
+frontmatter and before the first section heading. This lead is required
+structure for all page types, but it does not introduce an additional heading.
+
+The required headings remain the section families listed below. Material such as
+scope limits, distinctions, implications, background, and notable absences
+should usually live inside those sections rather than expanding the schema with
+new required headings.
+
 `source` pages should include:
 
 - summary
@@ -450,6 +459,8 @@ Before finishing any wiki-changing task, verify that:
 - no files in `raw/` were modified unless the user explicitly asked to add or
   update source material there
 - every touched content page lives in the correct typed directory
+- every touched content page begins with a short unheaded lead immediately after
+  frontmatter
 - wiki-page links use bare `[[slug]]` wherever possible
 - raw-source references use `[[raw/...]]`
 - every touched `source` page includes `raw_sha256`, and non-`source` pages do

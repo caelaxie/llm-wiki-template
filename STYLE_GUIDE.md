@@ -170,8 +170,13 @@ Prefer stable references:
 
 ## Structure and formatting
 
-Every content page should begin with a short lead immediately after frontmatter
-and before the first section heading.
+Every content page should begin with a short unheaded lead immediately after
+frontmatter and before the first section heading.
+
+Treat that lead plus the page-type headings from `AGENTS.md` as the full
+required structure. Do not add extra required headings such as `Scope`,
+`Background`, `Distinctions`, or `Implications` unless the user explicitly asks
+for a different schema.
 
 The lead should usually do four things:
 
@@ -224,6 +229,10 @@ Avoid chat habits that do not belong in a wiki:
 The required page types and baseline section families are defined in
 `AGENTS.md`. This section explains how to write them in this style.
 
+Treat optional material as content to place inside the existing structure, not
+as a reason to add more required headings. Use the minimum extra structure
+needed for clarity.
+
 For any page type, the default writing sequence is:
 
 1. lead with the answer, definition, or contribution
@@ -239,7 +248,8 @@ For any page type, the default writing sequence is:
 - In `## Summary`, state the source's main contribution early and plainly.
 - In `## Key takeaways`, favor distinct claims over paraphrased repetition.
 - In `## Evidence or notable details`, highlight concrete examples, evidence,
-  scope limits, and notable absences rather than rewriting the entire source.
+  scope limits, and notable absences rather than rewriting the entire source or
+  breaking them into separate required sections.
 - In `## Open questions`, preserve what the source leaves unclear, weakly
   supports, or appears to contradict.
 
@@ -250,7 +260,8 @@ For any page type, the default writing sequence is:
 - In `## Role or significance`, explain why the entity matters here, not only
   in the outside world.
 - In `## Current understanding`, group related ideas together and move from the
-  most important points to the qualifying detail.
+  most important points to the qualifying detail. Put distinctions from nearby
+  entities here when they help the reader.
 - In `## Open questions or tensions`, name unresolved issues directly instead of
   burying them in surrounding explanation.
 
@@ -261,7 +272,8 @@ For any page type, the default writing sequence is:
 - In `## Why it matters`, connect the concept to actual questions the wiki helps
   answer.
 - In `## Current understanding`, distinguish the concept from nearby terms when
-  that prevents confusion.
+  that prevents confusion instead of introducing a separate required
+  `Distinctions` section.
 - In `## Open questions or tensions`, state where the concept's boundaries,
   usefulness, or interpretation remain unsettled.
 
@@ -270,7 +282,9 @@ For any page type, the default writing sequence is:
 - Use the lead to restate the question or thesis and signal the kind of answer
   the page gives.
 - In `## Question or thesis`, phrase the question clearly and concretely.
-- In `## Synthesized answer`, answer first, then justify.
+- In `## Synthesized answer`, answer first, then justify. Put implications here
+  when they are part of the answer instead of adding a required implications
+  section.
 - In `## Citations or supporting pages`, order support so a reader can follow
   the reasoning without reconstructing it from links alone.
 - In `## Unresolved points`, keep the remaining uncertainty explicit.
@@ -361,6 +375,8 @@ Before finishing a material writing pass, check:
 - the page could be drafted by following the quick-start workflow without extra
   interpretation
 - the lead exists and states the page's main value early
+- the page uses only the required section families from `AGENTS.md` unless the
+  user asked for a different structure
 - the page defines the topic before diving into nuance
 - the first screen contains a real answer or summary, not only setup
 - paragraphs are short enough to scan comfortably
