@@ -1,0 +1,30 @@
+# LLM Wiki Template
+
+An LLM wiki template based on Andrej Karpathy's `llm-wiki` gist for turning curated `raw/` sources into a persistent markdown knowledge base.
+
+## How it works
+
+The basic model is `raw/ -> wiki/`.
+
+You curate source material in `raw/`, then use the repo contract to turn that material into durable wiki pages under `wiki/`. As the corpus grows, the wiki becomes the main knowledge layer, while `raw/` remains the backing source layer.
+
+## Repo structure
+
+- `raw/` - curated source documents
+- `wiki/` - persistent markdown wiki and navigation surfaces
+- `AGENTS.md` - repo contract for structure, workflows, and page types
+- `STYLE_GUIDE.md` - prose and presentation guide for wiki writing
+
+## Workflow
+
+1. Add curated source material to `raw/`.
+2. Follow `AGENTS.md` for wiki structure and `STYLE_GUIDE.md` for prose.
+3. Create or update pages in `wiki/sources/`, `wiki/entities/`, `wiki/concepts/`, and `wiki/syntheses/`.
+4. Keep `wiki/index.md` and `wiki/log.md` up to date.
+
+## Operations
+
+- `ingest` - integrate curated material from `raw/` into `wiki/` and update related pages, the index, and the log.
+- `query` - answer from the wiki first, then fold durable answers back into the knowledge base when they deserve a synthesis page.
+- `lint` - check wiki health, including structure, link integrity, stale claims, and integration gaps.
+- `refresh` - detect raw-source drift and report the downstream pages that should be revisited.
