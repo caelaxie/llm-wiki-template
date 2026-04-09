@@ -1,8 +1,6 @@
 # Log
 
-This log is the append-only chronological record of material wiki operations.
-Each entry should use a heading in the form `## [YYYY-MM-DD] operation | title`
-so later maintenance work can scan changes quickly.
+This log is the append-only chronological record of material wiki operations. Each entry should use a heading in the form `## [YYYY-MM-DD] operation | title` so later maintenance work can scan changes quickly.
 
 ## [2026-04-07] bootstrap | Initialize LLM wiki template
 
@@ -16,8 +14,7 @@ Created the minimal `llm-wiki` template bootstrap:
 
 ## [2026-04-08] maintenance | Refresh index and log for updated repo contract
 
-Updated the wiki navigation and operation surfaces to match the revised
-instructions in `AGENTS.md` and `STYLE_GUIDE.md`:
+Updated the wiki navigation and operation surfaces to match the revised instructions in `AGENTS.md` and `STYLE_GUIDE.md`:
 
 - rewrote `wiki/index.md` so it acts as the first navigation surface and states
   the current empty-page status by category
@@ -26,8 +23,7 @@ instructions in `AGENTS.md` and `STYLE_GUIDE.md`:
 
 ## [2026-04-08] maintenance | Rewrite style guide around ChatGPT-style prose
 
-Replaced the prior writing guide with a full rewrite aligned to the current
-public OpenAI Model Spec's writing defaults, adapted for persistent wiki pages:
+Replaced the prior writing guide with a full rewrite aligned to the current public OpenAI Model Spec's writing defaults, adapted for persistent wiki pages:
 
 - removed the prior MediaWiki-inspired framing
 - rewrote the guide around answer-first, direct, warm, professional, and
@@ -38,8 +34,7 @@ public OpenAI Model Spec's writing defaults, adapted for persistent wiki pages:
 
 ## [2026-04-08] maintenance | Make style guide easier for agents to apply
 
-Tightened the rewritten style guide so agents can execute it with less
-interpretation:
+Tightened the rewritten style guide so agents can execute it with less interpretation:
 
 - added a quick-start workflow for drafting and revising pages
 - added default decision rules for common writing tradeoffs

@@ -1,43 +1,29 @@
 # AGENTS.md
 
-This repository follows an LLM wiki pattern inspired by Andrej Karpathy's
-`llm-wiki` gist and related agentic wiki workflows.
+This repository follows an LLM wiki pattern inspired by Andrej Karpathy's `llm-wiki` gist and related agentic wiki workflows.
 
-The goal is not one-off retrieval over `raw/`. The goal is to maintain a
-persistent, compounding markdown wiki that sits between the human and a curated
-collection of source material.
+The goal is not one-off retrieval over `raw/`. The goal is to maintain a persistent, compounding markdown wiki that sits between the human and a curated collection of source material.
 
-This file is the operating contract for that wiki. It defines how an LLM should
-orient itself, decide whether to create or update pages, keep navigation intact,
-and preserve uncertainty instead of flattening it away.
+This file is the operating contract for that wiki. It defines how an LLM should orient itself, decide whether to create or update pages, keep navigation intact, and preserve uncertainty instead of flattening it away.
 
-This repository intentionally uses a narrow structure: four wiki page types,
-markdown content only, and lightweight frontmatter.
+This repository intentionally uses a narrow structure: four wiki page types, markdown content only, and lightweight frontmatter.
 
-`STYLE_GUIDE.md` is the companion writing guide for wiki prose and presentation.
-`AGENTS.md` remains authoritative for repo structure, workflow, page types,
-frontmatter, and required section families.
+`STYLE_GUIDE.md` is the companion writing guide for wiki prose and presentation. `AGENTS.md` remains authoritative for repo structure, workflow, page types, frontmatter, and required section families.
 
 ## Purpose
 
 There are three layers in this repo:
 
 1. `raw/` contains curated source documents. This is a human-curated source
-   layer by default. The agent may read from it, cite it, and build wiki pages
-   from it, but must not add, modify, rename, rewrite, or reorganize files in
-   `raw/` unless the user explicitly asks.
+   layer by default. The agent may read from it, cite it, and build wiki pages from it, but must not add, modify, rename, rewrite, or reorganize files in `raw/` unless the user explicitly asks.
 2. `wiki/` contains the persistent markdown wiki. This layer is generated and
    maintained by the LLM.
 3. `AGENTS.md` is the schema and workflow contract for how the LLM operates on
    the wiki.
 
-The wiki is a persistent artifact. New sources and valuable answers should be
-integrated into the wiki so knowledge accumulates over time.
+The wiki is a persistent artifact. New sources and valuable answers should be integrated into the wiki so knowledge accumulates over time.
 
-`STYLE_GUIDE.md` supplements this contract with writing rules for audience,
-language, leads, heading style, and information flow. If the two files overlap,
-`AGENTS.md` wins on schema and workflow while `STYLE_GUIDE.md` governs writing
-style and presentation.
+`STYLE_GUIDE.md` supplements this contract with writing rules for audience, language, leads, heading style, and information flow. If the two files overlap, `AGENTS.md` wins on schema and workflow while `STYLE_GUIDE.md` governs writing style and presentation.
 
 ## Core principles
 
@@ -56,8 +42,7 @@ style and presentation.
 
 ## Session orientation
 
-When working on an existing wiki, orient yourself before doing substantive work.
-Do this especially before ingest, broad maintenance, or creating new pages.
+When working on an existing wiki, orient yourself before doing substantive work. Do this especially before ingest, broad maintenance, or creating new pages.
 
 Minimum orientation pass:
 
@@ -67,12 +52,9 @@ Minimum orientation pass:
 4. Scan the most recent relevant entries in `wiki/log.md`.
 5. Read the most relevant existing wiki pages before creating anything new.
 
-This prevents duplicate pages, missed cross-references, and edits that fight the
-current shape of the wiki.
+This prevents duplicate pages, missed cross-references, and edits that fight the current shape of the wiki.
 
-If the wiki has grown enough that `wiki/index.md` is no longer sufficient on its
-own, run a targeted search across `wiki/` for relevant slugs, entities,
-concepts, and phrases before creating new pages.
+If the wiki has grown enough that `wiki/index.md` is no longer sufficient on its own, run a targeted search across `wiki/` for relevant slugs, entities, concepts, and phrases before creating new pages.
 
 ## Repository layout
 
@@ -94,6 +76,17 @@ Content pages must live only in those four typed directories.
 
 ## Markdown page conventions
 
+Markdown source formatting is repo-wide by default:
+
+- Store prose paragraphs as single logical lines separated by blank lines.
+- Rely on editor soft wrap for reading.
+- Do not manually wrap prose for visual width.
+- Do not use trailing spaces or end-of-line backslashes for hard line breaks.
+- Use explicit `<br>` only when a forced rendered line break is genuinely unavoidable.
+- Preserve structural Markdown layout where line shape is part of the syntax or meaning, including YAML frontmatter, headings, lists, blockquotes, tables, and fenced code blocks.
+- Apply this rule to repo Markdown by default, including wiki pages and Markdown test fixtures.
+- Keep top-level `raw/` as protected corpus material; do not reformat it unless the user explicitly asks.
+
 ### Page types
 
 Use these page types for markdown content pages:
@@ -105,8 +98,7 @@ Use these page types for markdown content pages:
 
 ### Frontmatter
 
-All markdown content pages should begin with YAML frontmatter. This example
-shows the shared fields common to every page type:
+All markdown content pages should begin with YAML frontmatter. This example shows the shared fields common to every page type:
 
 ```yaml
 ---
@@ -197,29 +189,19 @@ Create a new page when:
 - the topic recurs across sources and would otherwise be awkwardly buried
 - a durable synthesis question deserves its own `synthesis` page
 
-Do not create pages for fleeting mentions, weakly evidenced subtopics, or
-alternate phrasings of an existing page.
+Do not create pages for fleeting mentions, weakly evidenced subtopics, or alternate phrasings of an existing page.
 
-Before creating a page, search for likely existing slugs, synonyms, and related
-pages in the wiki.
+Before creating a page, search for likely existing slugs, synonyms, and related pages in the wiki.
 
 ### Body templates
 
-Keep pages narrative and minimal. Do not add tags, scoring fields, status
-fields, or Dataview-specific structure unless the user asks.
+Keep pages narrative and minimal. Do not add tags, scoring fields, status fields, or Dataview-specific structure unless the user asks.
 
-The lists below define the baseline required section families for each page
-type. `STYLE_GUIDE.md` refines how those sections should be introduced,
-sequenced, and written.
+The lists below define the baseline required section families for each page type. `STYLE_GUIDE.md` refines how those sections should be introduced, sequenced, and written.
 
-Every content page must begin with a short unheaded lead immediately after
-frontmatter and before the first section heading. This lead is required
-structure for all page types, but it does not introduce an additional heading.
+Every content page must begin with a short unheaded lead immediately after frontmatter and before the first section heading. This lead is required structure for all page types, but it does not introduce an additional heading.
 
-The required headings remain the section families listed below. Material such as
-scope limits, distinctions, implications, background, and notable absences
-should usually live inside those sections rather than expanding the schema with
-new required headings.
+The required headings remain the section families listed below. Material such as scope limits, distinctions, implications, background, and notable absences should usually live inside those sections rather than expanding the schema with new required headings.
 
 `source` pages should include:
 
@@ -305,8 +287,7 @@ When the user asks to ingest a new source:
 
 1. Ingest assumes the source has already been curated into `raw/`.
 2. If the user provides a URL, PDF, or pasted text that is not yet in `raw/`,
-   pause normal wiki ingest and ask whether to add that material to the corpus
-   first. Only add it to `raw/` when the user explicitly instructs you to do so.
+   pause normal wiki ingest and ask whether to add that material to the corpus first. Only add it to `raw/` when the user explicitly instructs you to do so.
 3. Read `wiki/index.md`.
 4. Read the source from `raw/`.
 5. Extract the important claims, entities, concepts, evidence, and unresolved
@@ -352,8 +333,7 @@ When the user asks a question:
    `raw/` by default.
 5. Cite supporting wiki pages and source pages with inline wiki links.
 6. If the answer creates durable value for the knowledge base, file it back into
-   the wiki as a `synthesis` page in `wiki/syntheses/`, then update
-   `wiki/index.md` and `wiki/log.md`.
+   the wiki as a `synthesis` page in `wiki/syntheses/`, then update `wiki/index.md` and `wiki/log.md`.
 7. If the answer is trivial or one-off, answer directly without forcing a new
    page.
 
@@ -365,8 +345,7 @@ When the user asks for a refresh or raw-drift check:
 2. `refresh` scans `source` pages and resolves each page's single canonical
    `[[raw/...]]` backing file.
 3. `refresh` computes the SHA-256 of that raw file and ensures `raw_sha256` is
-   present and current on the `source` page, bootstrapping a missing value when
-   needed.
+   present and current on the `source` page, bootstrapping a missing value when needed.
 4. `refresh` identifies changed `source` pages and computes downstream
    dependency closures using only `sources` frontmatter links.
 5. `refresh` prints a deterministic ordered report of the pages that should be
@@ -374,8 +353,7 @@ When the user asks for a refresh or raw-drift check:
 6. `refresh` must not rewrite dependent wiki pages, `wiki/index.md`, or
    `wiki/log.md`.
 7. After `refresh`, the agent may rewrite the reported pages, update
-   `updated_at` only for material content changes, then update `wiki/index.md`
-   and `wiki/log.md` if the wiki changed materially.
+   `updated_at` only for material content changes, then update `wiki/index.md` and `wiki/log.md` if the wiki changed materially.
 
 For dependency resolution during `refresh`:
 
@@ -413,8 +391,7 @@ When the user asks for a lint or health check:
 
 `lint` remains a health check. It should not be repurposed to perform raw-drift refresh or cascading page rewrites.
 
-For larger wikis, prefer programmatic scans for link graphs, frontmatter shape,
-and index completeness instead of relying on manual inspection alone.
+For larger wikis, prefer programmatic scans for link graphs, frontmatter shape, and index completeness instead of relying on manual inspection alone.
 
 ## Index and log
 

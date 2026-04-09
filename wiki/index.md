@@ -1,12 +1,8 @@
 # Index
 
-This index is the first navigation surface for the wiki. It catalogs the
-persistent markdown pages under `wiki/` and should stay aligned with the
-current page set as sources are ingested and syntheses accumulate.
+This index is the first navigation surface for the wiki. It catalogs the persistent markdown pages under `wiki/` and should stay aligned with the current page set as sources are ingested and syntheses accumulate.
 
-The wiki does not yet have any content pages beyond the required directory
-structure. Use bare `[[slug]]` links for wiki pages in this file and
-`[[raw/...]]` links for raw-source references when entries are added.
+The wiki does not yet have any content pages beyond the required directory structure. Use bare `[[slug]]` links for wiki pages in this file and `[[raw/...]]` links for raw-source references when entries are added.
 
 ## Sources
 

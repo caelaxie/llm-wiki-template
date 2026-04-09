@@ -1,26 +1,16 @@
 # STYLE_GUIDE.md
 
-This file defines the writing and presentation rules for the wiki in `wiki/`.
-It is a prose contract, not a schema contract.
+This file defines the writing and presentation rules for the wiki in `wiki/`. It is a prose contract, not a schema contract.
 
-This guide aligns the wiki's default writing behavior with the current public
-OpenAI Model Spec as adapted for durable markdown pages rather than live chat
-replies.
+This guide aligns the wiki's default writing behavior with the current public OpenAI Model Spec as adapted for durable markdown pages rather than live chat replies.
 
-It imports only the Model Spec traits that cleanly translate into writing and
-presentation. It does not import safety policy, refusal policy, chain-of-
-command mechanics, or voice/audio/video behavior except where they imply a
-useful prose trait such as honesty, directness, or explicit uncertainty.
+It imports only the Model Spec traits that cleanly translate into writing and presentation. It does not import safety policy, refusal policy, chain-of-command mechanics, or voice/audio/video behavior except where they imply a useful prose trait such as honesty, directness, or explicit uncertainty.
 
-`AGENTS.md` remains the authoritative contract for repo structure, workflow,
-page types, frontmatter, and required section families. If this file conflicts
-with `AGENTS.md`, follow `AGENTS.md`.
+`AGENTS.md` remains the authoritative contract for repo structure, workflow, page types, frontmatter, and required section families. If this file conflicts with `AGENTS.md`, follow `AGENTS.md`.
 
 ## Purpose
 
-Use this guide when creating or materially updating wiki prose. The goal is to
-make pages read with the same default strengths expected from strong ChatGPT
-responses, translated into a persistent wiki format:
+Use this guide when creating or materially updating wiki prose. The goal is to make pages read with the same default strengths expected from strong ChatGPT responses, translated into a persistent wiki format:
 
 - clear and direct
 - suitably professional
@@ -30,8 +20,7 @@ responses, translated into a persistent wiki format:
 - honest about uncertainty, limits, and assumptions
 - easy to scan without becoming shallow
 
-This guide does not change the repo schema. It does not add metadata, new page
-types, or new directories.
+This guide does not change the repo schema. It does not add metadata, new page types, or new directories.
 
 ## Agent quick start
 
@@ -71,9 +60,7 @@ When a choice is unclear, prefer these defaults:
 
 ## Writing model
 
-Write for mixed technical readers. Assume curiosity and some technical
-literacy, but do not assume deep familiarity with every acronym, protocol, or
-workflow in the corpus.
+Write for mixed technical readers. Assume curiosity and some technical literacy, but do not assume deep familiarity with every acronym, protocol, or workflow in the corpus.
 
 Before writing, identify:
 
@@ -90,8 +77,7 @@ Choose depth to match the page's likely use:
 - If readers may be new to the topic, define non-obvious terms on first use and
   add only the minimum background needed to follow the page.
 
-Do not write as if every page has the same audience. Adapt explanation depth,
-examples, and section density to the likely reader objective.
+Do not write as if every page has the same audience. Adapt explanation depth, examples, and section density to the likely reader objective.
 
 ## Core principles
 
@@ -170,13 +156,11 @@ Prefer stable references:
 
 ## Structure and formatting
 
-Every content page should begin with a short unheaded lead immediately after
-frontmatter and before the first section heading.
+Every content page should begin with a short unheaded lead immediately after frontmatter and before the first section heading.
 
-Treat that lead plus the page-type headings from `AGENTS.md` as the full
-required structure. Do not add extra required headings such as `Scope`,
-`Background`, `Distinctions`, or `Implications` unless the user explicitly asks
-for a different schema.
+Treat that lead plus the page-type headings from `AGENTS.md` as the full required structure. Do not add extra required headings such as `Scope`, `Background`, `Distinctions`, or `Implications` unless the user explicitly asks for a different schema.
+
+For repo-wide Markdown source formatting rules such as line breaks, soft wrap, and structural layout, follow `AGENTS.md`.
 
 The lead should usually do four things:
 
@@ -226,12 +210,9 @@ Avoid chat habits that do not belong in a wiki:
 
 ## Page-type guidance
 
-The required page types and baseline section families are defined in
-`AGENTS.md`. This section explains how to write them in this style.
+The required page types and baseline section families are defined in `AGENTS.md`. This section explains how to write them in this style.
 
-Treat optional material as content to place inside the existing structure, not
-as a reason to add more required headings. Use the minimum extra structure
-needed for clarity.
+Treat optional material as content to place inside the existing structure, not as a reason to add more required headings. Use the minimum extra structure needed for clarity.
 
 For any page type, the default writing sequence is:
 
@@ -248,8 +229,7 @@ For any page type, the default writing sequence is:
 - In `## Summary`, state the source's main contribution early and plainly.
 - In `## Key takeaways`, favor distinct claims over paraphrased repetition.
 - In `## Evidence or notable details`, highlight concrete examples, evidence,
-  scope limits, and notable absences rather than rewriting the entire source or
-  breaking them into separate required sections.
+  scope limits, and notable absences rather than rewriting the entire source or breaking them into separate required sections.
 - In `## Open questions`, preserve what the source leaves unclear, weakly
   supports, or appears to contradict.
 
@@ -260,8 +240,7 @@ For any page type, the default writing sequence is:
 - In `## Role or significance`, explain why the entity matters here, not only
   in the outside world.
 - In `## Current understanding`, group related ideas together and move from the
-  most important points to the qualifying detail. Put distinctions from nearby
-  entities here when they help the reader.
+  most important points to the qualifying detail. Put distinctions from nearby entities here when they help the reader.
 - In `## Open questions or tensions`, name unresolved issues directly instead of
   burying them in surrounding explanation.
 
@@ -272,8 +251,7 @@ For any page type, the default writing sequence is:
 - In `## Why it matters`, connect the concept to actual questions the wiki helps
   answer.
 - In `## Current understanding`, distinguish the concept from nearby terms when
-  that prevents confusion instead of introducing a separate required
-  `Distinctions` section.
+  that prevents confusion instead of introducing a separate required `Distinctions` section.
 - In `## Open questions or tensions`, state where the concept's boundaries,
   usefulness, or interpretation remain unsettled.
 
@@ -283,8 +261,7 @@ For any page type, the default writing sequence is:
   the page gives.
 - In `## Question or thesis`, phrase the question clearly and concretely.
 - In `## Synthesized answer`, answer first, then justify. Put implications here
-  when they are part of the answer instead of adding a required implications
-  section.
+  when they are part of the answer instead of adding a required implications section.
 - In `## Citations or supporting pages`, order support so a reader can follow
   the reasoning without reconstructing it from links alone.
 - In `## Unresolved points`, keep the remaining uncertainty explicit.
