@@ -192,6 +192,20 @@ Use lists only when they improve comprehension:
   structured.
 - If a short paragraph is clearer than a list, use the paragraph.
 
+Handle citations so they support readability:
+
+- In normal prose, cite wiki pages inline with bare `[[slug]]` links.
+- In normal prose, cite `raw/` materials with Markdown footnotes so source
+  paths and locator detail do not clutter the sentence.
+- In raw-source footnotes, put the `[[raw/...]]` link first, then add short
+  human-readable locator detail when useful, such as `p. 14`, `section
+  "Protocol overview"`, or `under "Failure modes"`.
+- If multiple raw sources support the same nearby claim, they may share one
+  footnote. If they support different claims or need different locators for
+  clarity, split them into separate footnotes.
+- Do not move core explanation into footnotes. Keep footnotes for attribution
+  and precise location, not for substantial side arguments.
+
 Prefer answer-first flow:
 
 1. orient the reader
@@ -230,6 +244,10 @@ For any page type, the default writing sequence is:
 - In `## Key takeaways`, favor distinct claims over paraphrased repetition.
 - In `## Evidence or notable details`, highlight concrete examples, evidence,
   scope limits, and notable absences rather than rewriting the entire source or breaking them into separate required sections.
+- Do not saturate `source` pages with repeated footnotes to the page's own
+  canonical raw document when the prose is broadly summarizing that source. Add
+  raw footnotes there when a sentence depends on a specific page, section,
+  quote, heading, or otherwise narrow claim.
 - In `## Open questions`, preserve what the source leaves unclear, weakly
   supports, or appears to contradict.
 
@@ -264,6 +282,9 @@ For any page type, the default writing sequence is:
   when they are part of the answer instead of adding a required implications section.
 - In `## Citations or supporting pages`, order support so a reader can follow
   the reasoning without reconstructing it from links alone.
+- Treat `## Citations or supporting pages` as a citation inventory rather than
+  normal prose. Inline `[[slug]]` and `[[raw/...]]` links are appropriate there
+  because scanability matters more than sentence flow.
 - In `## Unresolved points`, keep the remaining uncertainty explicit.
 
 ## Anti-patterns
@@ -337,6 +358,33 @@ Good uncertainty statement:
 ```md
 The source strongly supports the control-plane claim, but it is less specific
 about how policy evaluation behaves during network partition events.
+```
+
+Good raw-source footnote in normal prose:
+
+```md
+WireGuard minimizes protocol surface area.[^1]
+
+[^1]: [[raw/wireguard-whitepaper.md]], section "Protocol overview".
+```
+
+Good mixed wiki-link and raw-footnote citation:
+
+```md
+This distinction matters to [[tailscale]] because peer coordination and packet
+transport are separate concerns.[^1]
+
+[^1]: [[raw/tailscale-design.pdf]], p. 14.
+```
+
+Good synthesis citation inventory:
+
+```md
+## Citations or supporting pages
+
+- [[tailscale]]
+- [[wireguard]]
+- [[raw/tailscale-design.pdf]]
 ```
 
 Bad uncertainty statement:

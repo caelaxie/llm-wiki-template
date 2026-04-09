@@ -269,15 +269,65 @@ Recommended sentence-case headings for `synthesis` pages:
 
 ### Citations and cross-links
 
-- Use inline Obsidian-style wiki links for citations in page bodies.
-- Use bare `[[slug]]` links for wiki page citations.
-- Use `[[raw/...]]` links for raw-source citations.
+- In normal page-body prose, use bare `[[slug]]` links for wiki page citations.
+- In normal page-body prose, use Markdown footnotes for raw-source citations.
+- In raw-source footnotes, put the direct `[[raw/...]]` link first, then add
+  optional locator detail such as `p. 14`, `pp. 14-16`, `section "Protocol
+  overview"`, `under "Failure modes"`, or `appendix A`.
+- If no precise locator is available, the raw-source footnote may contain only
+  the `[[raw/...]]` link or the link plus a brief note such as `general
+  discussion`.
+- If multiple raw sources support the same nearby claim, one footnote may list
+  multiple `[[raw/...]]` links. Use separate footnotes when sources support
+  different claims or need distinct locators for clarity.
+- This footnote rule applies to normal page-body citations only. It does not
+  change frontmatter `sources`, `Related pages`, `wiki/index.md`, or other
+  structural link areas, which continue using normal wiki links.
+- On `source` pages, do not force repeated footnotes for broad summary
+  statements about the page's own canonical raw source. Add raw-source
+  footnotes there when a sentence depends on a specific page, section, quote,
+  heading, or otherwise narrow claim.
+- In `synthesis` pages, the `## Citations or supporting pages` section may list
+  supporting `[[slug]]` and `[[raw/...]]` links inline because that section is
+  a citation inventory rather than normal prose.
 - `synthesis` pages should cite the supporting wiki pages and source pages they
   rely on.
+- When materially editing a page, normalize any inline `[[raw/...]]` citations
+  in normal body prose into footnotes instead of preserving the older style.
 - New or materially updated pages should include meaningful links to the most
   relevant related pages whenever those relationships are known.
 - Avoid isolated pages. If a page belongs in the wiki, it should usually connect
   to existing entities, concepts, or syntheses.
+
+Examples:
+
+```md
+WireGuard minimizes protocol surface area.[^1]
+
+[^1]: [[raw/wireguard-whitepaper.md]], section "Protocol overview".
+```
+
+```md
+The coordination model in [[tailscale]] depends on metadata exchange rather
+than a permanent hub-and-spoke data plane.[^1]
+
+[^1]: [[raw/tailscale-design.pdf]], p. 14.
+```
+
+```md
+The control-plane claim is consistent across the core architecture documents.[^1]
+
+[^1]: [[raw/tailscale-design.pdf]], p. 14; [[raw/tailscale-overview.md]],
+section "Control plane".
+```
+
+```md
+## Citations or supporting pages
+
+- [[tailscale]]
+- [[wireguard]]
+- [[raw/tailscale-design.pdf]]
+```
 
 ## Operations
 
@@ -331,7 +381,8 @@ When the user asks a question:
    verification, or when a new source has not yet been integrated.
 4. Synthesize the answer from the wiki instead of rediscovering everything from
    `raw/` by default.
-5. Cite supporting wiki pages and source pages with inline wiki links.
+5. Cite supporting wiki pages with inline bare `[[slug]]` links and cite raw
+   sources in normal prose with Markdown footnotes.
 6. If the answer creates durable value for the knowledge base, file it back into
    the wiki as a `synthesis` page in `wiki/syntheses/`, then update `wiki/index.md` and `wiki/log.md`.
 7. If the answer is trivial or one-off, answer directly without forcing a new
@@ -439,7 +490,8 @@ Before finishing any wiki-changing task, verify that:
 - every touched content page begins with a short unheaded lead immediately after
   frontmatter
 - wiki-page links use bare `[[slug]]` wherever possible
-- raw-source references use `[[raw/...]]`
+- raw-source references use `[[raw/...]]` in frontmatter, footnotes, or other
+  structural citation inventories as appropriate
 - every touched `source` page includes `raw_sha256`, and non-`source` pages do
   not include it
 - no content-page slug collides with another content-page slug
