@@ -195,16 +195,28 @@ Use lists only when they improve comprehension:
 Handle citations so they support readability:
 
 - In normal prose, cite wiki pages inline with bare `[[slug]]` links.
-- In normal prose, cite `raw/` materials with Markdown footnotes so source
-  paths and locator detail do not clutter the sentence.
-- In raw-source footnotes, put the `[[raw/...]]` link first, then add short
-  human-readable locator detail when useful, such as `p. 14`, `section
-  "Protocol overview"`, or `under "Failure modes"`.
-- If multiple raw sources support the same nearby claim, they may share one
-  footnote. If they support different claims or need different locators for
-  clarity, split them into separate footnotes.
-- Do not move core explanation into footnotes. Keep footnotes for attribution
-  and precise location, not for substantial side arguments.
+- In normal prose, cite `raw/` materials with Markdown footnotes when the
+  prose depends directly on them.
+- Treat footnotes as attribution and locator detail only, not as a place for
+  side arguments, caveats, definitions, or extra explanation.
+- Use a raw footnote when a claim is quoted, dated, numerical, source-
+  specific, potentially disputed, surprising, or otherwise grounded directly in
+  `raw/` material.
+- A raw footnote is optional for broad orienting statements that are
+  immediately followed by a cited supporting sentence or paragraph.
+- A raw footnote is discouraged for generic setup sentences and repeated
+  restatements of a claim already cited in the same short paragraph.
+- On `source` pages, cite support-bearing paragraphs rather than trying to
+  footnote every sentence mechanically.
+- When adjacent sentences rely on the same raw source and the same locator or
+  tight locator range, one footnote may cover them both. Split footnotes when
+  the support shifts to a different section, page, source, or evidentiary
+  strength.
+- When a sentence is supported by both wiki pages and raw material, prefer an
+  inline `[[slug]]` link plus a raw footnote.
+- In raw-source footnotes, put the `[[raw/...]]` link first, then add the
+  shortest useful locator detail, such as `p. 14`, `section "Protocol
+  overview"`, or `under "Failure modes"`.
 
 Prefer answer-first flow:
 
@@ -244,10 +256,12 @@ For any page type, the default writing sequence is:
 - In `## Key takeaways`, favor distinct claims over paraphrased repetition.
 - In `## Evidence or notable details`, highlight concrete examples, evidence,
   scope limits, and notable absences rather than rewriting the entire source or breaking them into separate required sections.
-- Do not saturate `source` pages with repeated footnotes to the page's own
-  canonical raw document when the prose is broadly summarizing that source. Add
-  raw footnotes there when a sentence depends on a specific page, section,
-  quote, heading, or otherwise narrow claim.
+- On `source` pages, cite most factual or interpretive claims in the body, but
+  let nearby sentences share a footnote when they depend on the same raw source
+  and the same locator range.
+- Use a raw footnote on a `source` page when the prose narrows to a specific
+  page, section, quote, heading, statistic, or other claim that needs precise
+  grounding.
 - In `## Open questions`, preserve what the source leaves unclear, weakly
   supports, or appears to contradict.
 
@@ -259,6 +273,10 @@ For any page type, the default writing sequence is:
   in the outside world.
 - In `## Current understanding`, group related ideas together and move from the
   most important points to the qualifying detail. Put distinctions from nearby entities here when they help the reader.
+- When a claim is grounded directly in `raw/` material rather than only in
+  linked wiki pages, use a raw footnote in the same sentence or paragraph.
+- When both support types matter, prefer the mixed pattern of inline `[[slug]]`
+  plus a raw footnote.
 - In `## Open questions or tensions`, name unresolved issues directly instead of
   burying them in surrounding explanation.
 
@@ -270,6 +288,8 @@ For any page type, the default writing sequence is:
   answer.
 - In `## Current understanding`, distinguish the concept from nearby terms when
   that prevents confusion instead of introducing a separate required `Distinctions` section.
+- When the prose depends directly on `raw/` evidence, use a raw footnote rather
+  than leaving the claim unsupported or burying the support in a separate note.
 - In `## Open questions or tensions`, state where the concept's boundaries,
   usefulness, or interpretation remain unsettled.
 
@@ -285,6 +305,8 @@ For any page type, the default writing sequence is:
 - Treat `## Citations or supporting pages` as a citation inventory rather than
   normal prose. Inline `[[slug]]` and `[[raw/...]]` links are appropriate there
   because scanability matters more than sentence flow.
+- In the prose sections, use raw footnotes when a claim is tied directly to the
+  source material instead of to another wiki page alone.
 - In `## Unresolved points`, keep the remaining uncertainty explicit.
 
 ## Anti-patterns
@@ -338,6 +360,65 @@ In today's rapidly evolving security landscape, zero-trust networking has
 become an increasingly important topic that many organizations are discussing.
 ```
 
+Good source-page paragraph with paragraph-level citation grouping:
+
+```md
+The document describes a control plane that helps peers discover each other and
+exchange connection metadata. It also separates that coordination role from the
+packet transport path.[^1]
+
+[^1]: [[raw/tailscale-design.pdf]], p. 14.
+```
+
+Good source-page paragraph with split footnotes when support changes:
+
+```md
+The document says the coordination service handles peer discovery. A separate
+section describes packet transport in WireGuard tunnels.[^1][^2]
+
+[^1]: [[raw/tailscale-design.pdf]], p. 14.
+[^2]: [[raw/tailscale-design.pdf]], section "Packet transport".
+```
+
+Good mixed wiki-link and raw-footnote citation:
+
+```md
+This distinction matters to [[tailscale]] because peer coordination and packet
+transport are separate concerns.[^1]
+
+[^1]: [[raw/tailscale-design.pdf]], p. 14.
+```
+
+Good synthesis citation inventory:
+
+```md
+## Citations or supporting pages
+
+- [[tailscale]]
+- [[wireguard]]
+- [[raw/tailscale-design.pdf]]
+```
+
+Bad raw footnote that explains instead of attributing:
+
+```md
+WireGuard minimizes protocol surface area.[^1]
+
+[^1]: [[raw/wireguard-whitepaper.md]], section "Protocol overview". This is
+important because it makes the system easier to reason about in practice.
+```
+
+Bad pattern with a redundant footnote on every sentence:
+
+```md
+The document describes a control plane.[^1] It also describes peer discovery.[^2]
+It then separates transport from coordination.[^3]
+
+[^1]: [[raw/tailscale-design.pdf]], p. 14.
+[^2]: [[raw/tailscale-design.pdf]], p. 14.
+[^3]: [[raw/tailscale-design.pdf]], p. 14.
+```
+
 Good opening for a synthesis section:
 
 ```md
@@ -358,33 +439,6 @@ Good uncertainty statement:
 ```md
 The source strongly supports the control-plane claim, but it is less specific
 about how policy evaluation behaves during network partition events.
-```
-
-Good raw-source footnote in normal prose:
-
-```md
-WireGuard minimizes protocol surface area.[^1]
-
-[^1]: [[raw/wireguard-whitepaper.md]], section "Protocol overview".
-```
-
-Good mixed wiki-link and raw-footnote citation:
-
-```md
-This distinction matters to [[tailscale]] because peer coordination and packet
-transport are separate concerns.[^1]
-
-[^1]: [[raw/tailscale-design.pdf]], p. 14.
-```
-
-Good synthesis citation inventory:
-
-```md
-## Citations or supporting pages
-
-- [[tailscale]]
-- [[wireguard]]
-- [[raw/tailscale-design.pdf]]
 ```
 
 Bad uncertainty statement:
@@ -410,4 +464,6 @@ Before finishing a material writing pass, check:
 - repeated paraphrase has been removed
 - the prose sounds human and professional, not stiff or chatty
 - uncertainty, assumptions, and evidence limits are explicit where needed
+- citation density matches the support instead of becoming mechanical
+- footnotes carry attribution and locator detail, not side arguments
 - the page still reads like durable wiki prose rather than a transient chat reply

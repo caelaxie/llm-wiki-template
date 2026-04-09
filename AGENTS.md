@@ -269,31 +269,55 @@ Recommended sentence-case headings for `synthesis` pages:
 
 ### Citations and cross-links
 
-- In normal page-body prose, use bare `[[slug]]` links for wiki page citations.
-- In normal page-body prose, use Markdown footnotes for raw-source citations.
+- Footnotes are allowed on any page type.
+- In normal prose, use bare `[[slug]]` links for wiki-page support.
+- In normal prose, use Markdown footnotes for direct support from `raw/`.
+- When a sentence is supported by both wiki pages and raw material, prefer an
+  inline bare `[[slug]]` link plus a raw-source footnote.
+- Footnotes are for attribution and locator detail only, not for side
+  arguments, caveats, definitions, or overflow explanation.
+- Use a raw-source footnote when a claim is quoted, dated or time-bounded,
+  numerical or otherwise specific, attributed to a particular source's framing
+  or interpretation, or potentially disputed, surprising, or narrower than
+  common background knowledge.
+- A raw-source footnote is optional for high-level summary of a `source` page's
+  own canonical raw document when the paragraph is clearly descriptive and
+  non-quotational, and for broad orienting statements that are immediately
+  followed by a cited supporting sentence or paragraph.
+- A raw-source footnote is discouraged for generic setup sentences, repeated
+  restatements of a claim already cited in the same short paragraph, and
+  explanation that belongs in the body text.
+- Use footnotes at paragraph scope when adjacent sentences rely on the same raw
+  source and the same locator or tight locator range. Split footnotes when the
+  support shifts to a different section, page, source, or evidentiary
+  strength.
 - In raw-source footnotes, put the direct `[[raw/...]]` link first, then add
-  optional locator detail such as `p. 14`, `pp. 14-16`, `section "Protocol
-  overview"`, `under "Failure modes"`, or `appendix A`.
+  the shortest useful locator detail such as `p. 14`, `pp. 14-16`,
+  `section "Protocol overview"`, `under "Failure modes"`, or `appendix A`.
 - If no precise locator is available, the raw-source footnote may contain only
   the `[[raw/...]]` link or the link plus a brief note such as `general
   discussion`.
 - If multiple raw sources support the same nearby claim, one footnote may list
   multiple `[[raw/...]]` links. Use separate footnotes when sources support
   different claims or need distinct locators for clarity.
-- This footnote rule applies to normal page-body citations only. It does not
-  change frontmatter `sources`, `Related pages`, `wiki/index.md`, or other
-  structural link areas, which continue using normal wiki links.
-- On `source` pages, do not force repeated footnotes for broad summary
-  statements about the page's own canonical raw source. Add raw-source
-  footnotes there when a sentence depends on a specific page, section, quote,
-  heading, or otherwise narrow claim.
-- In `synthesis` pages, the `## Citations or supporting pages` section may list
-  supporting `[[slug]]` and `[[raw/...]]` links inline because that section is
-  a citation inventory rather than normal prose.
+- Definitions:
+  - `normal prose` means leads and narrative body paragraphs.
+  - `structural areas` means frontmatter, related-page lists, and synthesis
+    citation inventories.
+  - `locator range` means one page, a short page span, or one named section.
+- These rules apply to normal prose only. They do not change frontmatter
+  `sources`, `Related pages`, `wiki/index.md`, or other structural link areas,
+  which continue using normal wiki links.
+- On `source` pages, cite most factual or interpretive paragraphs. Paragraphs
+  may share a single footnote when they use the same raw source and locator
+  range, but a second footnote is required when the next sentence shifts to a
+  different section, page, source, or evidentiary strength.
+- In `synthesis` pages, the `## Citations or supporting pages` section is a
+  plain link inventory, so list supporting `[[slug]]` and `[[raw/...]]` links
+  inline rather than turning the section into footnoted prose.
 - `synthesis` pages should cite the supporting wiki pages and source pages they
   rely on.
-- When materially editing a page, normalize any inline `[[raw/...]]` citations
-  in normal body prose into footnotes instead of preserving the older style.
+- These rules are editorial guidance, not lint or normalization requirements.
 - New or materially updated pages should include meaningful links to the most
   relevant related pages whenever those relationships are known.
 - Avoid isolated pages. If a page belongs in the wiki, it should usually connect
@@ -301,25 +325,37 @@ Recommended sentence-case headings for `synthesis` pages:
 
 Examples:
 
+Good source-page paragraph with paragraph-level citation grouping:
+
 ```md
-WireGuard minimizes protocol surface area.[^1]
+WireGuard minimizes protocol surface area. It keeps the protocol surface small
+enough to be auditable by design.[^1]
 
 [^1]: [[raw/wireguard-whitepaper.md]], section "Protocol overview".
 ```
 
+Good source-page paragraph with split footnotes when support changes:
+
 ```md
 The coordination model in [[tailscale]] depends on metadata exchange rather
-than a permanent hub-and-spoke data plane.[^1]
+than a permanent hub-and-spoke data plane.[^1] The same source also frames the
+control plane as separate from packet forwarding.[^2]
 
 [^1]: [[raw/tailscale-design.pdf]], p. 14.
+[^2]: [[raw/tailscale-design.pdf]], p. 15.
 ```
 
+Good mixed wiki-link and raw-footnote citation:
+
 ```md
-The control-plane claim is consistent across the core architecture documents.[^1]
+The control-plane claim in [[tailscale]] is consistent across the core
+architecture documents.[^1]
 
 [^1]: [[raw/tailscale-design.pdf]], p. 14; [[raw/tailscale-overview.md]],
 section "Control plane".
 ```
+
+Good synthesis citation inventory:
 
 ```md
 ## Citations or supporting pages
@@ -327,6 +363,24 @@ section "Control plane".
 - [[tailscale]]
 - [[wireguard]]
 - [[raw/tailscale-design.pdf]]
+```
+
+Bad raw footnote that explains instead of attributing:
+
+```md
+The note explains the difference between control and data planes.[^1]
+
+[^1]: The distinction is important because it clarifies why the design remains
+simple.
+```
+
+Bad pattern with a redundant footnote on every sentence:
+
+```md
+WireGuard minimizes protocol surface area.[^1][^2]
+
+[^1]: [[raw/wireguard-whitepaper.md]], section "Protocol overview".
+[^2]: [[raw/wireguard-whitepaper.md]], section "Protocol overview".
 ```
 
 ## Operations
@@ -381,8 +435,9 @@ When the user asks a question:
    verification, or when a new source has not yet been integrated.
 4. Synthesize the answer from the wiki instead of rediscovering everything from
    `raw/` by default.
-5. Cite supporting wiki pages with inline bare `[[slug]]` links and cite raw
-   sources in normal prose with Markdown footnotes.
+5. Cite supporting wiki pages with inline bare `[[slug]]` links and use raw
+   footnotes in normal prose when the answer depends directly on `raw/`
+   material.
 6. If the answer creates durable value for the knowledge base, file it back into
    the wiki as a `synthesis` page in `wiki/syntheses/`, then update `wiki/index.md` and `wiki/log.md`.
 7. If the answer is trivial or one-off, answer directly without forcing a new
