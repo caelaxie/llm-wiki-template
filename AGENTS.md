@@ -211,6 +211,20 @@ The required headings remain the section families listed below. Material such as
 - related pages
 - open questions
 
+For `source` pages, `## Summary` should begin with a short overall summary of the source's contribution and then include a required section map.
+
+The section map stays inside `## Summary`; do not add a separate `## Section map` heading.
+
+Use one bullet per section and subsection, with nested bullets indented by two spaces per level to show hierarchy.
+
+Preserve the source's original section numbering when it exists.
+
+Skip boilerplate headings such as acknowledgements, references, and author notes by default.
+
+Include appendices only when they add substantive content relevant to the wiki.
+
+Low-signal branches may be folded into the nearest meaningful parent bullet, but substantive analytical sections should remain explicit.
+
 Recommended sentence-case headings for `source` pages:
 
 - `## Summary`

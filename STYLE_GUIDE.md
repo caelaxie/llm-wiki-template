@@ -252,10 +252,28 @@ For any page type, the default writing sequence is:
 
 - Use the lead to identify the source, its document type, and why it matters to
   this wiki.
-- In `## Summary`, state the source's main contribution early and plainly.
+- In `## Summary`, state the source's main contribution early and plainly, then
+  add a required nested section map.
+- Keep the section map inside `## Summary`; do not add a separate `## Section
+  map` heading.
+- Structure the section map as short bullets, usually one sentence each.
+- Use one bullet per section and subsection, with nested bullets indented by
+  two spaces per level to show hierarchy.
+- Preserve the source's original section numbering when it exists. If the
+  source does not number sections, use titled nested bullets instead.
+- Make each bullet say what that section or subsection does and why it matters.
+  Add at most one notable claim when it materially helps navigation.
+- Skip boilerplate headings such as acknowledgements, references, and author
+  notes by default. Include appendices only when they add substantive content
+  relevant to the wiki.
+- On very long or mechanical outlines, fold low-signal branches into the
+  nearest meaningful parent bullet rather than mirroring every minor heading.
 - In `## Key takeaways`, favor distinct claims over paraphrased repetition.
 - In `## Evidence or notable details`, highlight concrete examples, evidence,
-  scope limits, and notable absences rather than rewriting the entire source or breaking them into separate required sections.
+  scope limits, and notable absences rather than rewriting the entire source or
+  breaking them into separate required sections.
+- Keep the nested section map navigational. Detailed interpretation still
+  belongs in `## Key takeaways` and `## Evidence or notable details`.
 - On `source` pages, cite most factual or interpretive claims in the body, but
   let nearby sentences share a footnote when they depend on the same raw source
   and the same locator range.
@@ -264,6 +282,76 @@ For any page type, the default writing sequence is:
   grounding.
 - In `## Open questions`, preserve what the source leaves unclear, weakly
   supports, or appears to contradict.
+
+Example source-page template:
+
+```md
+---
+title: "Example Paper Title"
+type: "source"
+sources:
+  - "[[raw/example-paper.md]]"
+raw_sha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+created_at: "2026-04-10"
+updated_at: "2026-04-10"
+---
+
+This page covers *Example Paper Title*, a paper about how a distributed system handles coordination and recovery. For this wiki, its main value is that it makes the paper's argument, evidence, and limits easy to scan before reading the full document.
+
+## Summary
+
+The paper argues that the proposed design improves recovery behavior by making failure handling explicit instead of treating it as a side effect of the normal path.[^1] Its main contribution to this wiki is a compact model for separating steady-state behavior from recovery behavior.
+
+Section map:
+- 1 Introduction: frames the problem, names the paper's core claim, and states why prior approaches are hard to reason about.[^1]
+- 2 System model: defines the assumptions that bound the rest of the argument.[^2]
+  - 2.1 Failure model: narrows which failures the design is meant to handle.[^2]
+  - 2.2 Network assumptions: explains the timing and connectivity assumptions behind the evaluation.[^2]
+- 3 Design: presents the mechanism and the main invariants the authors want the reader to carry into the evaluation.[^3]
+  - 3.1 Coordination path: explains how the system behaves during normal operation.[^3]
+  - 3.2 Recovery path: explains how the system handles failure and rejoin behavior.[^4]
+    - 3.2.1 State transfer: shows how state is synchronized during recovery.[^4]
+    - 3.2.2 Rejoin conditions: defines when a recovered node can safely participate again.[^4]
+  - 3.3 Implementation details: covers storage layout, batching, and retry mechanics that matter less to the main argument, so those low-signal sub-branches are folded into this parent bullet.
+- 4 Evaluation: reports steady-state and fault-injection results, then compares them against two baselines.[^5]
+  - 4.1 Throughput results: measures normal-case performance.[^5]
+  - 4.2 Fault-injection results: measures degradation and recovery under failure.[^6]
+- 5 Limitations: narrows the claim to the conditions actually studied.[^7]
+- Appendix A: details the benchmark harness used in the evaluation and is worth keeping because later wiki pages may need that methodology.[^8]
+
+## Key takeaways
+
+- The paper's main contribution is the separation between normal operation and recovery behavior.
+- Its strongest evidence comes from evaluating both steady-state behavior and failure handling rather than only reporting best-case performance.
+- The claims appear strongest in environments that match the stated failure and network assumptions.
+
+## Evidence or notable details
+
+The design section makes correctness depend on a bounded failure model and on explicit coordination points between replicas.[^3] That matters because the later performance claims only make sense if those coordination costs are accepted as part of the model.
+
+The evaluation is also notable for separating steady-state benchmarks from fault-injection experiments.[^5] That makes it easier to see which improvements come from the design itself and which depend on favorable operating conditions.
+
+## Related pages
+
+- [[example-system]]
+- [[failure-recovery]]
+- [[coordination-under-partial-failure]]
+
+## Open questions
+
+- Does the paper's failure model match the environments this wiki cares about?
+- Are the gains still convincing under noisier real-world conditions?
+- Which parts of the design are durable concepts and which are paper-specific?
+
+[^1]: [[raw/example-paper.md]], section "Introduction".
+[^2]: [[raw/example-paper.md]], section "System model".
+[^3]: [[raw/example-paper.md]], section "Design".
+[^4]: [[raw/example-paper.md]], section "Recovery path".
+[^5]: [[raw/example-paper.md]], section "Evaluation".
+[^6]: [[raw/example-paper.md]], section "Fault-injection results".
+[^7]: [[raw/example-paper.md]], section "Limitations".
+[^8]: [[raw/example-paper.md]], appendix A.
+```
 
 ### Entity pages
 
