@@ -15,7 +15,7 @@ This repository intentionally uses a narrow structure: four wiki page types, mar
 There are three layers in this repo:
 
 1. `raw/` contains curated source documents. This is a human-curated source
-   layer by default. The agent may read from it, cite it, and build wiki pages from it, but must not add, modify, rename, rewrite, or reorganize files in `raw/` unless the user explicitly asks. When the user does explicitly ask the agent to add material into `raw/`, any images that are part of that material must be downloaded automatically into `raw/assets/` and referenced with `[[raw/assets/...]]` wikilinks. For web material, this includes relevant source images exposed by the page or its image URLs, but excludes obvious site chrome, ads, avatars, tracking pixels, and unrelated decorative assets.
+   layer by default. The agent may read from it, cite it, and build wiki pages from it, but must not add, modify, rename, rewrite, or reorganize files in `raw/` unless the user explicitly asks. When the user does explicitly ask the agent to add material into `raw/`, any images that are part of that material must be downloaded automatically into `raw/assets/` and embedded with `![[raw/assets/...]]` wiki links. For web material, this includes relevant source images exposed by the page or its image URLs, but excludes obvious site chrome, ads, avatars, tracking pixels, and unrelated decorative assets.
 2. `wiki/` contains the persistent markdown wiki. This layer is generated and
    maintained by the LLM.
 3. `AGENTS.md` is the schema and workflow contract for how the LLM operates on
@@ -35,8 +35,9 @@ The wiki is a persistent artifact. New sources and valuable answers should be in
 - Preserve contradictions, uncertainty, and open questions instead of forcing
   premature reconciliation.
 - Use bare `[[slug]]` wikilinks for wiki content pages whenever possible.
-- Use `[[raw/...]]` wikilinks for raw-source references, including
-  `[[raw/assets/...]]` for downloaded images stored in the raw corpus.
+- Use `[[raw/...]]` wikilinks for raw-source references.
+- Use `![[raw/assets/...]]` wiki links when embedding downloaded images stored
+  in the raw corpus.
 - Follow `STYLE_GUIDE.md` when writing or materially revising wiki prose.
 - Keep the repo structure narrow. Do not introduce extra content directories,
   extra required metadata, or extra page classes unless the user explicitly asks.
@@ -292,8 +293,8 @@ Recommended sentence-case headings for `synthesis` pages:
 - Footnotes are allowed on any page type.
 - In normal prose, use bare `[[slug]]` links for wiki-page support.
 - In normal prose, use Markdown footnotes for direct support from `raw/`.
-- When referring to a downloaded image stored in the raw corpus, use a
-  `[[raw/assets/...]]` wikilink rather than leaving a website image URL in
+- When embedding a downloaded image stored in the raw corpus, use a
+  `![[raw/assets/...]]` wiki link rather than leaving a website image URL in
   place or using a plain relative Markdown path.
 - When a sentence is supported by both wiki pages and raw material, prefer an
   inline bare `[[slug]]` link plus a raw-source footnote.
@@ -418,7 +419,7 @@ When the user asks to ingest a new source:
 3. If the user explicitly asks to add new raw material and that material comes
    from the web, automatically download the relevant source images exposed by
    that material into `raw/assets/` and replace website image references with
-   `[[raw/assets/<filename>]]` wikilinks. Skip obvious site chrome, ads,
+   `![[raw/assets/<filename>]]` wiki links. Skip obvious site chrome, ads,
    avatars, tracking pixels, and unrelated decorative assets.
 4. Read `wiki/index.md`.
 5. Read the source from `raw/`.
@@ -553,7 +554,7 @@ Examples:
 
 - Never modify files in `raw/` unless the user explicitly asks.
 - Do not store downloaded images ad hoc elsewhere in `raw/`; place them under
-  `raw/assets/` and reference them as `[[raw/assets/...]]`.
+  `raw/assets/` and embed them as `![[raw/assets/...]]`.
 - Do not leave relevant website image URLs in place when the corresponding raw
   material is being added to the corpus; download those images into
   `raw/assets/` unless they are obvious site chrome or unrelated assets.
@@ -584,7 +585,7 @@ Before finishing any wiki-changing task, verify that:
 - wiki-page links use bare `[[slug]]` wherever possible
 - raw-source references use `[[raw/...]]` in frontmatter, footnotes, or other
   structural citation inventories as appropriate
-- downloaded image references use `[[raw/assets/...]]` rather than external
+- downloaded image references use `![[raw/assets/...]]` rather than external
   URLs or plain relative Markdown paths
 - every touched `source` page includes `raw_sha256`, and non-`source` pages do
   not include it
