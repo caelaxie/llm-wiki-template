@@ -15,7 +15,7 @@ This repository intentionally uses a narrow structure: four wiki page types, mar
 There are three layers in this repo:
 
 1. `raw/` contains curated source documents. This is a human-curated source
-   layer by default. The agent may read from it, cite it, and build wiki pages from it, but must not add, modify, rename, rewrite, or reorganize files in `raw/` unless the user explicitly asks.
+   layer by default. The agent may read from it, cite it, and build wiki pages from it, but must not add, modify, rename, rewrite, or reorganize files in `raw/` unless the user explicitly asks. When the user does explicitly ask the agent to add material into `raw/`, any images that are part of that material must be downloaded automatically into `raw/assets/` and referenced with `[[raw/assets/...]]` wikilinks. For web material, this includes relevant source images exposed by the page or its image URLs, but excludes obvious site chrome, ads, avatars, tracking pixels, and unrelated decorative assets.
 2. `wiki/` contains the persistent markdown wiki. This layer is generated and
    maintained by the LLM.
 3. `AGENTS.md` is the schema and workflow contract for how the LLM operates on
@@ -35,7 +35,8 @@ The wiki is a persistent artifact. New sources and valuable answers should be in
 - Preserve contradictions, uncertainty, and open questions instead of forcing
   premature reconciliation.
 - Use bare `[[slug]]` wikilinks for wiki content pages whenever possible.
-- Use `[[raw/...]]` wikilinks for raw-source references.
+- Use `[[raw/...]]` wikilinks for raw-source references, including
+  `[[raw/assets/...]]` for downloaded images stored in the raw corpus.
 - Follow `STYLE_GUIDE.md` when writing or materially revising wiki prose.
 - Keep the repo structure narrow. Do not introduce extra content directories,
   extra required metadata, or extra page classes unless the user explicitly asks.
@@ -85,7 +86,8 @@ Markdown source formatting is repo-wide by default:
 - Use explicit `<br>` only when a forced rendered line break is genuinely unavoidable.
 - Preserve structural Markdown layout where line shape is part of the syntax or meaning, including YAML frontmatter, headings, lists, blockquotes, tables, and fenced code blocks.
 - Apply this rule to repo Markdown by default, including wiki pages and Markdown test fixtures.
-- Keep top-level `raw/` as protected corpus material; do not reformat it unless the user explicitly asks.
+- Keep top-level `raw/` as protected corpus material, including `raw/assets/`;
+  do not reformat it unless the user explicitly asks.
 
 ### Page types
 
@@ -117,7 +119,8 @@ Rules:
 - `type` must be one of `source`, `entity`, `concept`, or `synthesis`.
 - `sources` is a list of wiki-link strings pointing to the raw files and/or wiki
   pages that materially support the page.
-- Use `[[raw/...]]` for raw-source references in `sources`.
+- Use `[[raw/...]]` for raw-source references in `sources`, including
+  `[[raw/assets/...]]` when an image asset is itself supporting source material.
 - Use bare `[[slug]]` for wiki-page references in `sources`.
 - All page types require `title`, `type`, `sources`, `created_at`, and
   `updated_at`.
@@ -130,6 +133,9 @@ Rules:
 - The dedicated `refresh` workflow reconciles `raw_sha256` later and may
   bootstrap a missing value on an existing page during refresh.
 - `raw_sha256` must not appear on `entity`, `concept`, or `synthesis` pages.
+- If an image asset under `raw/assets/` is the single canonical raw backing
+  file for a `source` page, it is still a normal `[[raw/...]]` reference and
+  still requires `raw_sha256`.
 
 Example non-source page frontmatter:
 
@@ -286,6 +292,9 @@ Recommended sentence-case headings for `synthesis` pages:
 - Footnotes are allowed on any page type.
 - In normal prose, use bare `[[slug]]` links for wiki-page support.
 - In normal prose, use Markdown footnotes for direct support from `raw/`.
+- When referring to a downloaded image stored in the raw corpus, use a
+  `[[raw/assets/...]]` wikilink rather than leaving a website image URL in
+  place or using a plain relative Markdown path.
 - When a sentence is supported by both wiki pages and raw material, prefer an
   inline bare `[[slug]]` link plus a raw-source footnote.
 - Footnotes are for attribution and locator detail only, not for side
@@ -406,27 +415,32 @@ When the user asks to ingest a new source:
 1. Ingest assumes the source has already been curated into `raw/`.
 2. If the user provides a URL, PDF, or pasted text that is not yet in `raw/`,
    pause normal wiki ingest and ask whether to add that material to the corpus first. Only add it to `raw/` when the user explicitly instructs you to do so.
-3. Read `wiki/index.md`.
-4. Read the source from `raw/`.
-5. Extract the important claims, entities, concepts, evidence, and unresolved
+3. If the user explicitly asks to add new raw material and that material comes
+   from the web, automatically download the relevant source images exposed by
+   that material into `raw/assets/` and replace website image references with
+   `[[raw/assets/<filename>]]` wikilinks. Skip obvious site chrome, ads,
+   avatars, tracking pixels, and unrelated decorative assets.
+4. Read `wiki/index.md`.
+5. Read the source from `raw/`.
+6. Extract the important claims, entities, concepts, evidence, and unresolved
    questions.
-6. Check what already exists before creating anything new. Search for likely
+7. Check what already exists before creating anything new. Search for likely
    entities, concepts, syntheses, and alternate phrasings.
-7. Create or update the corresponding `source` page in `wiki/sources/`. If the
+8. Create or update the corresponding `source` page in `wiki/sources/`. If the
    page is newly created, include `raw_sha256` in its frontmatter immediately.
-8. Update the most relevant `entity`, `concept`, and `synthesis` pages when the
+9. Update the most relevant `entity`, `concept`, and `synthesis` pages when the
    source materially changes them.
-9. Create new supporting pages only when they meet the create-vs-update rules
+10. Create new supporting pages only when they meet the create-vs-update rules
    above.
-10. Add or refresh meaningful cross-links between the touched pages.
-11. Update `wiki/index.md` so it remains a useful category-organized catalog of
+11. Add or refresh meaningful cross-links between the touched pages.
+12. Update `wiki/index.md` so it remains a useful category-organized catalog of
    wiki pages.
-12. Ensure each relevant index entry includes at least a link and a one-line
+13. Ensure each relevant index entry includes at least a link and a one-line
     summary.
-13. Append an entry to `wiki/log.md` describing the ingest.
-14. Update `updated_at` on every content page materially changed during ingest.
-15. Set `created_at` and `updated_at` when creating a new content page.
-16. When creating a new `source` page, compute and include `raw_sha256` in the
+14. Append an entry to `wiki/log.md` describing the ingest.
+15. Update `updated_at` on every content page materially changed during ingest.
+16. Set `created_at` and `updated_at` when creating a new content page.
+17. When creating a new `source` page, compute and include `raw_sha256` in the
     initial frontmatter instead of relying on a later refresh to add it.
 
 For batch ingest:
@@ -538,6 +552,11 @@ Examples:
 ## Pitfalls
 
 - Never modify files in `raw/` unless the user explicitly asks.
+- Do not store downloaded images ad hoc elsewhere in `raw/`; place them under
+  `raw/assets/` and reference them as `[[raw/assets/...]]`.
+- Do not leave relevant website image URLs in place when the corresponding raw
+  material is being added to the corpus; download those images into
+  `raw/assets/` unless they are obvious site chrome or unrelated assets.
 - Do not skip orientation on an existing wiki before major ingest or synthesis
   work.
 - Do not create pages for passing mentions just because a name appears once.
@@ -555,12 +574,18 @@ Before finishing any wiki-changing task, verify that:
 
 - no files in `raw/` were modified unless the user explicitly asked to add or
   update source material there
+- any downloaded images added to the raw corpus were stored under `raw/assets/`
+  rather than elsewhere in `raw/`
+- relevant images from web-sourced raw material were downloaded locally into
+  `raw/assets/` instead of being left as website image URLs
 - every touched content page lives in the correct typed directory
 - every touched content page begins with a short unheaded lead immediately after
   frontmatter
 - wiki-page links use bare `[[slug]]` wherever possible
 - raw-source references use `[[raw/...]]` in frontmatter, footnotes, or other
   structural citation inventories as appropriate
+- downloaded image references use `[[raw/assets/...]]` rather than external
+  URLs or plain relative Markdown paths
 - every touched `source` page includes `raw_sha256`, and non-`source` pages do
   not include it
 - no content-page slug collides with another content-page slug
