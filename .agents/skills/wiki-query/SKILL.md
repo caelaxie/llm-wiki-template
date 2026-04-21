@@ -11,14 +11,44 @@ Use this skill before answering questions from a repository derived from this te
 
 The goal of query work is to answer from the accumulated wiki first, use `raw/` only when needed, and file durable answers back into the wiki when doing so improves the knowledge base.
 
+## Orientation
+
+Before answering a substantive question:
+
+1. Read `wiki/index.md` first.
+2. Scan the most relevant existing pages before inventing a new framing.
+3. Scan recent relevant entries in `wiki/log.md` when freshness, recent ingest work, or recently changed syntheses may matter.
+4. If `wiki/index.md` is not enough, run a targeted search across `wiki/` for likely slugs, synonyms, entities, concepts, and question phrases before touching `raw/`.
+
 ## Query workflow
 
 1. Start from `wiki/index.md` to locate the relevant parts of the wiki.
-2. Read the most relevant wiki pages first.
-3. Use `raw/` selectively when the wiki lacks needed detail, when a claim needs verification, or when a new source has not yet been integrated.
-4. Synthesize from the wiki instead of rediscovering everything from `raw/` by default.
-5. Cite supporting wiki pages inline with bare `[[slug]]` links.
-6. Use raw-source footnotes in normal prose when the answer depends directly on `raw/` material.
+2. Classify the question before reading widely:
+   - factual lookup
+   - relationship query
+   - synthesis query
+   - gap or open-question query
+3. Read the smallest useful set of relevant wiki pages first.
+4. Use targeted search across `wiki/` when the index is not enough, the wiki has grown large, or the likely answer may be split across several pages.
+5. When targeted search identifies likely candidate pages but not yet a clear answer, inspect the relevant matching sections before reading whole pages end to end.
+6. Use `raw/` selectively when the wiki lacks needed detail, when a claim needs verification, or when a new source has not yet been integrated.
+7. Synthesize from the wiki instead of rediscovering everything from `raw/` by default.
+8. Cite supporting wiki pages inline with bare `[[slug]]` links.
+9. Use raw-source footnotes in normal prose when the answer depends directly on `raw/` material.
+
+## Retrieval ladder
+
+Escalate in this order unless the user explicitly asks for deeper verification:
+
+1. `wiki/index.md`
+2. the most relevant existing wiki pages
+3. targeted search across `wiki/`
+4. relevant matching sections from likely wiki pages
+5. selective `raw/` verification
+
+Do not jump straight to broad `raw/` reading when the wiki likely already contains a good answer.
+
+If the user explicitly asks for a quick answer, a quick scan, or a high-level answer, prefer the cheaper end of the ladder and state the scope limit clearly.
 
 ## When to open raw sources
 
@@ -28,6 +58,7 @@ Go to `raw/` when:
 - the answer depends on a time-bounded, numerical, quoted, disputed, or source-specific claim
 - the wiki appears stale relative to a source already present in the corpus
 - the user is asking about material that has not yet been integrated
+- the answer hinges on checking whether the wiki has overstated, simplified, or flattened a source
 
 Do not default to `raw/` when the wiki already contains a good answer.
 
@@ -38,6 +69,16 @@ Do not default to `raw/` when the wiki already contains a good answer.
 - Use the wiki's own page structure and terminology where that helps the answer stay aligned with the repo.
 - Make uncertainty explicit if the wiki or sources are mixed, partial, or dated.
 - If the answer depends on both wiki pages and raw material, prefer inline `[[slug]]` links plus raw footnotes rather than replacing everything with raw citations.
+- Say when the answer is bounded by the current corpus, recent ingest state, or incomplete integration rather than implying broader coverage than the wiki actually has.
+- If the answer required selective raw verification, use that to sharpen or correct the wiki-grounded answer rather than turning the whole response into a raw-source summary.
+
+## Cheap-path answers
+
+When the user asks for speed over completeness:
+
+- answer from `wiki/index.md`, the most relevant page leads, and the smallest useful set of existing pages
+- avoid opening `raw/` unless the user asks for verification or the answer would otherwise be misleading
+- label the scope plainly when the answer is intentionally based on a lighter pass
 
 ## Durable vs one-off answers
 
@@ -46,6 +87,7 @@ Create or update a `synthesis` page when:
 - the answer resolves a reusable question the wiki is likely to face again
 - the answer combines multiple existing pages into a durable conclusion
 - the answer would make the wiki materially easier to navigate later
+- the answer preserves an important tension, contradiction, or scope boundary that would otherwise stay trapped in chat
 
 Answer directly without creating a page when:
 
@@ -64,11 +106,18 @@ When an answer deserves to become durable wiki content:
 5. Update `wiki/index.md` so the new or revised synthesis is discoverable.
 6. Append the operation to `wiki/log.md`.
 
+Before creating a new synthesis page, search for an existing synthesis, concept, or entity page that already carries the question and update that page instead of creating a near-duplicate.
+
 ## Common failure modes
 
 - Answering from `raw/` even though the wiki already has the needed synthesis
+- Skipping `wiki/index.md` or recent relevant log entries and missing the wiki's current shape
+- Reading too much of the wiki before classifying the question
+- Reading whole pages end to end when a section-level pass would have answered the question
+- Opening broad swaths of `raw/` when targeted wiki search would have been enough
 - Writing the answer in expert-only shorthand that a careful newcomer cannot follow
 - Quoting raw material directly without integrating it into the wiki's existing concepts
 - Creating a new synthesis page for a trivial answer
+- Creating a new synthesis page when an existing page should have been updated
 - Leaving a durable answer out of `wiki/index.md`
 - Flattening mixed evidence into a false certainty
