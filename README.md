@@ -8,6 +8,8 @@ The basic model is `raw/ -> wiki/`.
 
 You curate source material in `raw/`, then use the repo contract to turn that material into durable wiki pages under `wiki/`. As the corpus grows, the wiki becomes the main knowledge layer, while `raw/` remains the backing source layer.
 
+The writing model is plain-language, answer-first wiki prose: technically accurate, professionally toned, and readable both by people who already know the field and by careful newcomers.
+
 ## Repo structure
 
 - `raw/` - curated source documents

@@ -50,3 +50,20 @@ Refactored the repo from a two-file guidance model into a single root contract p
 - moved detailed writing and task-playbook guidance out of the root contract and into those repo-local skills
 - updated `README.md` to describe the new operating model
 - removed `STYLE_GUIDE.md`
+
+## [2026-04-22] maintenance | Shift template prose toward plain-language dual-use writing
+
+Updated the template's writing contract so the wiki style explicitly serves both experienced readers and careful newcomers:
+
+- added plain-language and professional-tone requirements to `AGENTS.md` and `.agents/skills/wiki-writing`
+- clarified that pages should define non-obvious terms and add only the minimum orientation needed to follow the page
+- tightened anti-patterns to reject expert-only shorthand, inflated prose, and tutorial-style overexplaining
+- aligned query, ingest, maintenance, and README wording with the revised style contract
+- rewrote the example pages so their leads and first sections model the new style directly
+
+## [2026-04-22] maintenance | Make example pages less repo-internal
+
+Tightened the writing examples so they model explanatory prose more directly and rely less on corpus-internal framing:
+
+- replaced several uses of `current corpus` and `in this wiki` in the examples with plainer explanatory wording
+- kept the examples aligned to the same page-type distinctions while reducing meta commentary in the opening sections

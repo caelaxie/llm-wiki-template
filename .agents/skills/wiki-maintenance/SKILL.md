@@ -32,6 +32,7 @@ Use `lint` for health-check work:
 - bad date formats
 - bad filename hygiene or duplicate titles
 - missing required section headings or missing unheaded leads
+- prose that is technically valid but still assumes too much field familiarity or uses avoidably dense wording
 - malformed synthesis `## Evidence base` structure
 - missing index entries or index summaries
 - weak `## Related pages` integration
@@ -65,6 +66,7 @@ Refresh must not:
 
 - Treat contradictions as signals to preserve, explain, or route for follow-up, not as proof that one page must be flattened into another.
 - Treat weak integration as a page-shape problem: missing related links, missing index presence, or missing synthesis context.
+- Treat expert-only shorthand or needless density as a writing-quality issue when it blocks a careful newcomer from following an otherwise valid page.
 - Treat malformed frontmatter and slug issues as contract violations, not editorial preferences.
 - Treat missing `raw_sha256` on a `source` page as refresh-related maintenance, not as a reason to rewrite unrelated content.
 

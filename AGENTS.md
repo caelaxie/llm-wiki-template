@@ -40,6 +40,7 @@ This file intentionally does not duplicate the detailed playbooks from those ski
 - Treat `wiki/index.md` as the first navigation surface for queries and maintenance work.
 - Record meaningful wiki operations in `wiki/log.md`.
 - Keep wiki content in markdown.
+- Write in plain language with a professional tone. Prefer the clearest wording that preserves technical accuracy, and define non-obvious terms rather than assuming field familiarity.
 - Preserve contradictions, uncertainty, and open questions instead of forcing premature reconciliation.
 - Use bare `[[slug]]` wikilinks for wiki content pages whenever possible.
 - Use `[[raw/...]]` wikilinks for raw-source references.
@@ -256,6 +257,12 @@ Keep pages narrative and minimal. Do not add tags, scoring fields, status fields
 
 Every content page must begin with a short unheaded lead immediately after frontmatter and before the first section heading.
 
+Write pages so both informed readers and careful newcomers can use them. The lead should usually tell the reader what the page is about, why it matters, and what minimum context they need to follow the rest.
+
+Use plain language by default. Specialized terms are allowed when they improve precision, but define or ground non-obvious terms on first use instead of assuming the reader already knows them.
+
+When a page is easy to misread, surface one key distinction or common confusion early. Keep that orientation compact so the page still reads like a durable wiki page rather than a primer.
+
 `source` pages should include:
 
 - summary
@@ -422,7 +429,8 @@ When the user asks for a lint or health check:
 12. Identify near-duplicate pages caused by slug drift or weak disambiguation.
 13. Identify slug collisions that would make bare `[[slug]]` links ambiguous.
 14. Identify `wiki/index.md` entries missing category placement, links, or one-line summaries.
-15. Record the lint pass in `wiki/log.md` if it materially affects the wiki or future work.
+15. Identify pages whose prose is structurally valid but still assumes too much field familiarity or uses avoidably dense language.
+16. Record the lint pass in `wiki/log.md` if it materially affects the wiki or future work.
 
 `lint` remains a health check. It should not be repurposed to perform raw-drift refresh or cascading page rewrites.
 
@@ -478,6 +486,7 @@ Before finishing any wiki-changing task, verify that:
 - relevant images from web-sourced raw material were downloaded locally into `raw/assets/` instead of being left as website image URLs
 - every touched content page lives in the correct typed directory
 - every touched content page begins with a short unheaded lead immediately after frontmatter
+- every touched content page uses plain language with a professional tone and defines non-obvious terms when needed
 - wiki-page links use bare `[[slug]]` wherever possible
 - raw-source references use `[[raw/...]]` in frontmatter, footnotes, or other structural citation inventories as appropriate
 - downloaded image references use `![[raw/assets/...]]` rather than external URLs or plain relative Markdown paths

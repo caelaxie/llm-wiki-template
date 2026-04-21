@@ -71,6 +71,7 @@ Do not create pages for fleeting mentions, weakly evidenced subtopics, or altern
 - Prefer one coordinated pass across all affected pages rather than repeatedly reopening the same concepts source by source.
 - Keep the touched set narrow. Update only the pages materially changed by the new evidence.
 - If several new sources overlap, read them first, identify shared concepts once, and then update the affected pages in one pass.
+- When rewriting prose, keep it in plain language with a professional tone. Define non-obvious terms on first use and add only the minimum orientation needed for a careful newcomer to follow the page.
 
 ## Index and log discipline
 
@@ -83,6 +84,7 @@ Do not create pages for fleeting mentions, weakly evidenced subtopics, or altern
 
 - Creating a new page before checking whether a canonical slug already exists
 - Updating prose without also updating `updated_at`
+- Rewriting a page in field shorthand that assumes too much background or drifts into tutorial-style exposition
 - Touching several pages but forgetting to refresh `wiki/index.md`
 - Adding a new `source` page without `raw_sha256`
 - Leaving a newly created page weakly linked or invisible from the rest of the wiki

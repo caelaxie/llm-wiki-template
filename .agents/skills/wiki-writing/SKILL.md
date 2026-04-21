@@ -11,7 +11,7 @@ Gold-standard reference pages live in `examples/` next to this skill. Use them w
 
 ## Purpose
 
-The goal is to make pages read like durable wiki pages rather than transient chat replies. Write clearly, directly, and efficiently. State the main point early, preserve uncertainty honestly, and keep the page easy to scan without making it shallow.
+The goal is to make pages read like durable wiki pages rather than transient chat replies. Write in plain language with a professional tone. State the main point early, preserve uncertainty honestly, and keep the page easy to scan without making it shallow.
 
 ## Default decisions
 
@@ -21,16 +21,18 @@ When a choice is unclear, prefer these defaults:
 - Prefer a direct claim over a cautious setup sentence unless the evidence is genuinely uncertain.
 - Prefer defining the term now over linking away and assuming the reader will click.
 - Prefer one concrete example over several abstract sentences.
+- Prefer plain wording over field-specific shorthand unless the specialized term is the clearest accurate choice.
 - Prefer preserving an open question over implying certainty that the sources do not support.
 - Prefer cutting a repeated sentence over keeping it for emphasis.
 - Prefer the clearest wording over the most technical wording unless precision requires the technical term.
 
 ## Writing model
 
-- Write for mixed technical readers. Assume curiosity and some technical literacy, but do not assume deep familiarity with every acronym, protocol, or workflow in the corpus.
+- Write for dual-use reading. Informed readers should be able to move quickly, and careful newcomers should be able to follow without prior field familiarity.
+- Write in plain language. Specialized terms are allowed when they improve precision, but define or ground non-obvious terms on first use instead of assuming the reader already knows them.
 - Before writing, identify what the page needs to help the reader do, what the reader likely already knows, and whether the page mainly summarizes a source, explains an entity, explains a concept, or answers a synthesis question.
 - Apply the page-type boundary from `AGENTS.md`: named persistent things are usually `entity` pages, while recurring ideas, mechanisms, methods, distinctions, and claim families are usually `concept` pages.
-- Choose depth to match likely use. If readers likely know the topic, move quickly to distinctions, evidence, and tensions. If readers may be new, define non-obvious terms on first use and add only the minimum background needed to follow the page.
+- Add only the minimum orientation needed to follow the page. Do not assume field familiarity, but do not turn a normal wiki page into a step-by-step primer.
 
 ## Core style rules
 
@@ -44,6 +46,12 @@ Define before nuance:
 
 - Define the main term in plain language before discussing disagreements, implementation detail, or history.
 - If two nearby ideas are easy to confuse, distinguish them early.
+
+Use plain language with professional tone:
+
+- Sound precise, calm, direct, and evidence-aware.
+- Do not confuse professionalism with stiffness, academic phrasing, or jargon density.
+- Simplify expression, not thought. Keep the real distinctions, but say them as clearly as the topic allows.
 
 Be clear and direct:
 
@@ -71,6 +79,7 @@ Express uncertainty honestly:
 ## Structure and formatting
 
 - The lead should usually say what the page covers, why it matters, the main takeaway, and any prerequisite context the reader truly needs.
+- The first screen should usually answer three questions quickly: what is this, why does it matter, and what minimal context does a new reader need before the details.
 - Prefer short paragraphs by default. One paragraph should usually carry one main idea.
 - Split paragraphs that mix explanation, evidence, and caveat in the same block.
 - Use headings to guide the reader, not decorate the page.
@@ -102,7 +111,7 @@ For any page type, the default writing sequence is:
 
 ### Source pages
 
-- Use the lead to identify the source, its research role, its artifact shape when relevant, and why it matters to this wiki.
+- Use the lead to identify the source, its research role, its artifact shape when relevant, and why it matters to this wiki in terms a new reader can follow.
 - In `## Summary`, state the source's main contribution early and plainly, then add the required nested section map.
 - Keep the section map navigational. Detailed interpretation belongs in `## Key takeaways` and `## Evidence or notable details`.
 - Preserve the source's original section numbering when it exists. If the source does not number sections, use titled nested bullets instead.
@@ -112,10 +121,10 @@ For any page type, the default writing sequence is:
 
 ### Entity pages
 
-- Use the lead to say what the entity is and why it matters in this corpus.
+- Use the lead to say plainly what the entity is, why it matters here, and any one distinction a new reader needs before the page gets more specific.
 - In `## Summary`, define the entity before describing debates around it.
 - In `## Role or significance`, explain why the entity matters here, not only in the outside world.
-- In `## Current understanding`, group related ideas together and move from the most important points to qualifying detail.
+- In `## Current understanding`, group related ideas together and move from the most important points to qualifying detail. Surface one common confusion early when it materially improves understanding.
 - In `## Open questions or tensions`, name unresolved issues directly instead of burying them in surrounding explanation.
 
 ### Concept pages
@@ -123,12 +132,12 @@ For any page type, the default writing sequence is:
 - Use the lead to define the concept in plain language before expanding it.
 - In `## Summary`, give the core idea in a way a new reader can follow.
 - In `## Why it matters`, connect the concept to actual questions the wiki helps answer.
-- In `## Current understanding`, distinguish the concept from nearby terms when that prevents confusion.
+- In `## Current understanding`, distinguish the concept from nearby terms when that prevents confusion, and do it early rather than after several paragraphs of setup.
 - In `## Open questions or tensions`, state where the concept's boundaries, usefulness, or interpretation remain unsettled.
 
 ### Synthesis pages
 
-- Use the lead to restate the question or thesis, signal the kind of answer the page gives, and add a short scope note when the answer is bounded by source set, time window, method, or corpus coverage.
+- Use the lead to restate the question or thesis, signal the kind of answer the page gives, define any non-obvious key term that the reader needs immediately, and add a short scope note when the answer is bounded by source set, time window, method, or corpus coverage.
 - In `## Question or thesis`, phrase the question clearly and concretely.
 - In `## Synthesized answer`, answer first, then justify.
 - In `## Evidence base`, use the fixed subgroup headings from `AGENTS.md` when they are relevant.
@@ -140,9 +149,12 @@ For any page type, the default writing sequence is:
 
 - Avoid academic throat-clearing. Start with the claim or definition rather than several setup sentences.
 - Avoid assistant-style filler such as `Sure`, `Let's break this down`, or `Here's the key idea`.
+- Avoid expert-only shorthand that assumes the reader already knows the field's key terms, distinctions, or acronyms.
+- Avoid “teaching mode” that turns a normal wiki page into a tutorial chapter or primer when one or two orienting sentences would do.
 - Avoid repetitive paraphrase across the lead, summary, and first body paragraph.
 - Avoid dense multi-idea paragraphs that define, compare, caveat, and historicize at the same time.
 - Avoid generic bullets that replace explanation with vague phrases.
+- Avoid inflated prose that sounds professional only because it is abstract, formal, or jargon-heavy.
 - Avoid vague claims such as `This is important because it affects many things`.
 
 ## Practical checks
@@ -153,10 +165,12 @@ Before finishing a material writing pass, check:
 - the page uses only the required section families from `AGENTS.md` unless the user asked for a different structure
 - the page defines the topic before diving into nuance
 - the first screen contains a real answer or summary, not only setup
+- a careful newcomer could follow the lead without outside explanation
 - paragraphs are short enough to scan comfortably
 - bullets are used only where they improve comprehension
 - repeated paraphrase has been removed
-- the prose sounds human and professional, not stiff or chatty
+- the prose sounds human and professional, not stiff, academic, inflated, or chatty
+- non-obvious terms are defined or grounded on first use
 - uncertainty, assumptions, and evidence limits are explicit where needed
 - citation density matches the support instead of becoming mechanical
 - footnotes carry attribution and locator detail, not side arguments

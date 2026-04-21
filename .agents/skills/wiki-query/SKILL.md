@@ -34,6 +34,7 @@ Do not default to `raw/` when the wiki already contains a good answer.
 ## How to answer
 
 - Give the answer early rather than rebuilding the topic from scratch.
+- Write in plain language with a professional tone, and define non-obvious terms when the answer would otherwise assume field familiarity.
 - Use the wiki's own page structure and terminology where that helps the answer stay aligned with the repo.
 - Make uncertainty explicit if the wiki or sources are mixed, partial, or dated.
 - If the answer depends on both wiki pages and raw material, prefer inline `[[slug]]` links plus raw footnotes rather than replacing everything with raw citations.
@@ -57,7 +58,7 @@ Answer directly without creating a page when:
 When an answer deserves to become durable wiki content:
 
 1. Create or update the synthesis page under `wiki/syntheses/`.
-2. Use the synthesis lead to state the answer and add a short scope note when the conclusion is materially bounded.
+2. Use the synthesis lead to state the answer in plain language, define any non-obvious key term the reader needs immediately, and add a short scope note when the conclusion is materially bounded.
 3. Add the relevant supporting pages and raw sources under `## Evidence base`, using claim-led bullets rather than a flat link dump.
 4. Keep contradictions or unresolved conflicts visible in `## Unresolved points` even when the synthesis privileges one interpretation.
 5. Update `wiki/index.md` so the new or revised synthesis is discoverable.
@@ -66,6 +67,7 @@ When an answer deserves to become durable wiki content:
 ## Common failure modes
 
 - Answering from `raw/` even though the wiki already has the needed synthesis
+- Writing the answer in expert-only shorthand that a careful newcomer cannot follow
 - Quoting raw material directly without integrating it into the wiki's existing concepts
 - Creating a new synthesis page for a trivial answer
 - Leaving a durable answer out of `wiki/index.md`

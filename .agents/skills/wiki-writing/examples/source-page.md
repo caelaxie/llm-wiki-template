@@ -14,10 +14,10 @@ created_at: "2026-04-22"
 updated_at: "2026-04-22"
 ---
 
-This page captures the WireGuard whitepaper as a primary research source on minimal VPN protocol design. In this wiki it matters because it directly states the design argument that later entity, concept, and synthesis pages rely on, rather than merely repeating that argument secondhand.
+The WireGuard whitepaper is a primary source on how WireGuard's designers explain the protocol. It matters because it states the main design argument in the authors' own terms, so later analysis can build on the source directly instead of paraphrasing it from memory.
 
 ## Summary
-The paper argues that WireGuard's deliberately constrained protocol surface is a security and maintainability choice, not just an implementation taste.[^1] It presents minimalism as a way to make cryptographic and protocol reasoning more auditable than in negotiation-heavy VPN designs.[^1]
+The paper argues that WireGuard keeps the protocol deliberately small as a security and maintainability choice, not just as an implementation preference.[^1] In plain terms, the authors claim that a protocol with fewer moving parts is easier to inspect, reason about, and implement safely than a VPN design with many negotiation options.[^1]
 
 - 1. Introduction
   - 1.1 Design goals
@@ -33,12 +33,12 @@ The paper argues that WireGuard's deliberately constrained protocol surface is a
   - 4.2 Performance claims and their limits
 
 ## Key takeaways
-WireGuard treats minimalism as part of the protocol's core security story, because smaller surface area is easier to inspect and reason about.[^1] The paper also implicitly distinguishes between protocol clarity and universal deployment superiority: it argues strongly for the former, but supports the latter more selectively.[^1]
+WireGuard treats minimalism as part of the protocol's core security story because a smaller surface area is easier to inspect and reason about.[^1] The paper also draws an important distinction between protocol clarity and universal superiority in deployment: it argues strongly for the first claim, but supports the second more selectively.[^1]
 
 ## Evidence or notable details
-The source directly supports the claim that smaller protocol surface is a design goal, and it ties that goal to auditability, implementation simplicity, and reduced configuration ambiguity.[^1] It is also useful for the way it frames cryptographic choices as part of a coherent design philosophy rather than a menu of interchangeable options.[^1]
+The source directly supports the claim that a smaller protocol surface is a design goal, and it ties that goal to auditability, implementation simplicity, and fewer confusing configuration choices.[^1] It is also useful because it frames cryptographic choices as one design philosophy rather than as a menu of interchangeable options.[^1]
 
-Its limits matter. The paper is persuasive as a protocol-design argument, but it is not a broad comparative operations study across heterogeneous deployments. It gives a strong rationale for minimal design, yet it leaves open how well that rationale generalizes when operational constraints, interoperability requirements, or administrative complexity dominate.[^1]
+Its limits matter. The paper is persuasive as a protocol-design argument, but it is not a broad operational study across many deployment environments. It gives a strong rationale for minimal design, yet it leaves open how well that rationale holds when interoperability requirements, operational constraints, or administrative complexity dominate.[^1]
 
 [^1]: [[raw/wireguard-whitepaper.md]], general discussion.
 
@@ -48,4 +48,4 @@ Its limits matter. The paper is persuasive as a protocol-design argument, but it
 - [[why-minimal-vpn-designs-appeal-to-researchers]]
 
 ## Open questions
-The paper does not fully resolve how its design tradeoffs perform under every operational constraint or deployment model. It also leaves open how much of WireGuard's appeal comes from protocol minimalism itself versus from the quality of its specific implementation and surrounding ecosystem.
+The paper does not fully resolve how its design tradeoffs perform under every operational constraint or deployment model. It also leaves open how much of WireGuard's appeal comes from protocol minimalism itself versus from the quality of its implementation and the surrounding ecosystem.
