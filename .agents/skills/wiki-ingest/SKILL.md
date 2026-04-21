@@ -16,6 +16,9 @@ The goal of ingest is to turn curated corpus material in `raw/` into durable wik
 - Ingest assumes the source already exists in `raw/`.
 - If the user supplies a URL, PDF, or pasted text that is not yet in `raw/`, stop normal ingest flow and confirm whether it should be added to the corpus first.
 - If the user explicitly asks to add new web-sourced raw material, download relevant source images into `raw/assets/` and replace website image references with `![[raw/assets/...]]`.
+- Treat image files in `raw/` and `raw/assets/` as valid source material when the user has curated them into the corpus.
+- For image-backed sources, distinguish what is directly visible from what is inferred. Do not present diagram interpretation, OCR guesses, or visual extrapolation as if the image stated them verbatim.
+- If the available tools cannot inspect an image-backed source reliably enough for ingest, report that limitation instead of guessing.
 
 ## Orientation pass
 
@@ -38,6 +41,12 @@ Before touching wiki content:
 6. Add or refresh meaningful cross-links between all touched pages.
 7. Update `wiki/index.md` once the touched page set is stable.
 8. Append the ingest entry to `wiki/log.md`.
+
+For image-backed raw sources:
+
+- Describe the artifact shape clearly in the `source` page so later readers know they are looking at an image, scan, diagram, slide, or screenshot rather than ordinary prose.
+- Be conservative about extracting claims from dense charts, diagrams, or screenshots. If a conclusion depends on interpretation rather than explicit text, state that limit in the page body.
+- When the image is the single canonical backing file for the `source` page, compute `raw_sha256` from that image file exactly as you would for any other canonical `[[raw/...]]` source.
 
 ## Create-vs-update in practice
 
@@ -87,6 +96,7 @@ Do not create pages for fleeting mentions, weakly evidenced subtopics, or altern
 - Rewriting a page in field shorthand that assumes too much background or drifts into tutorial-style exposition
 - Touching several pages but forgetting to refresh `wiki/index.md`
 - Adding a new `source` page without `raw_sha256`
+- Treating an image-backed source as if every interpreted relationship in the image were explicit text
 - Leaving a newly created page weakly linked or invisible from the rest of the wiki
 - Flattening contradictions instead of preserving them
 

@@ -58,9 +58,22 @@ Refresh must not:
 ## Lint workflow
 
 1. Start from `wiki/index.md` and the relevant areas of the wiki.
-2. Use programmatic scans for link graphs, frontmatter shape, and index completeness when the wiki is large enough that manual inspection is weak.
+2. Use programmatic scans for link graphs, frontmatter shape, filename hygiene, and index completeness when the wiki is large enough that manual inspection is weak.
 3. Inspect the wiki for structural defects, integration gaps, and stale or contradictory claims.
 4. Record the lint pass in `wiki/log.md` only if it materially affects the wiki or future work.
+
+## Cost-aware scan order
+
+Prefer a cheap structural pass before broad manual reading:
+
+1. `wiki/index.md` for the current catalog and obvious gaps
+2. file lists, slug checks, and filename hygiene across `wiki/`
+3. frontmatter validation and `sources`-graph inspection
+4. wikilink graph scans and targeted searches for ambiguous, broken, or weakly integrated links
+5. section-level reads from pages that the structural pass identified as risky
+6. full-page reads only for the pages that still need editorial judgment after the cheaper scans
+
+When the wiki is large, use `rg` or similar targeted scans to narrow the candidate set before opening full pages. Do not treat broad manual reading as the default lint strategy.
 
 ## How to interpret issues
 
@@ -85,5 +98,6 @@ Do not rewrite pages just because maintenance surfaced a question, a possible fu
 - Using `lint` when the task is really raw drift
 - Letting `refresh` rewrite the wiki directly instead of producing the next-work report
 - Treating body wikilinks as refresh dependencies
+- Opening large numbers of full pages before a cheaper structural scan has identified which pages actually need attention
 - Fixing page prose when the actual issue is an index or link-graph problem
 - Logging every maintenance scan even when it produced no material effect

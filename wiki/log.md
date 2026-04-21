@@ -67,3 +67,12 @@ Tightened the writing examples so they model explanatory prose more directly and
 
 - replaced several uses of `current corpus` and `in this wiki` in the examples with plainer explanatory wording
 - kept the examples aligned to the same page-type distinctions while reducing meta commentary in the opening sections
+
+## [2026-04-22] maintenance | Make repo-local skills more cost-aware and image-aware
+
+Refined the repo-local wiki skills after comparing them with the external `llm-wiki` skill in `Ar9av/obsidian-wiki`:
+
+- added a more explicit cheap-to-expensive retrieval ladder and retrieval-primitives guidance to `.agents/skills/wiki-query`
+- added image-backed source handling and provenance cautions to `.agents/skills/wiki-ingest`
+- added a cost-aware structural scan order to `.agents/skills/wiki-maintenance`
+- kept the repo's stricter page schema and avoided importing incompatible Obsidian-specific metadata or manifest rules

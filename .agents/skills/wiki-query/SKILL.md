@@ -41,14 +41,27 @@ Before answering a substantive question:
 Escalate in this order unless the user explicitly asks for deeper verification:
 
 1. `wiki/index.md`
-2. the most relevant existing wiki pages
-3. targeted search across `wiki/`
+2. targeted search across `wiki/` for likely slugs, headings, entities, concepts, and question terms
+3. the smallest useful read from likely wiki pages, starting with frontmatter plus the unheaded lead
 4. relevant matching sections from likely wiki pages
-5. selective `raw/` verification
+5. full-page reads only when the cheaper passes still leave ambiguity
+6. selective `raw/` verification
 
 Do not jump straight to broad `raw/` reading when the wiki likely already contains a good answer.
 
 If the user explicitly asks for a quick answer, a quick scan, or a high-level answer, prefer the cheaper end of the ladder and state the scope limit clearly.
+
+## Retrieval primitives
+
+Prefer the cheapest primitive that can answer the question:
+
+- For page discovery, start with `wiki/index.md` and targeted `rg` searches for likely slugs, titles, headings, entities, concepts, and question phrases.
+- For a quick preview of a likely page, inspect the frontmatter and unheaded lead before reading the whole body.
+- For a specific claim, section, or relationship, use targeted section reads or `rg -n -A <n> -B <n>` around the relevant term instead of opening the full page first.
+- Read whole pages only when the answer depends on broader page structure, sustained argument, or several nearby sections together.
+- Move to `raw/` only after the wiki-side primitives stop being sufficient or when the answer needs direct source verification.
+
+The rule is simple: do not spend a whole-page read to answer a section-level question, and do not spend a raw-source read to answer a wiki-level question.
 
 ## When to open raw sources
 
@@ -76,7 +89,7 @@ Do not default to `raw/` when the wiki already contains a good answer.
 
 When the user asks for speed over completeness:
 
-- answer from `wiki/index.md`, the most relevant page leads, and the smallest useful set of existing pages
+- answer from `wiki/index.md`, targeted wiki search, the most relevant page leads, and the smallest useful set of existing pages
 - avoid opening `raw/` unless the user asks for verification or the answer would otherwise be misleading
 - label the scope plainly when the answer is intentionally based on a lighter pass
 
@@ -113,6 +126,7 @@ Before creating a new synthesis page, search for an existing synthesis, concept,
 - Answering from `raw/` even though the wiki already has the needed synthesis
 - Skipping `wiki/index.md` or recent relevant log entries and missing the wiki's current shape
 - Reading too much of the wiki before classifying the question
+- Opening whole pages before checking whether the frontmatter, lead, or a targeted section read would answer the question
 - Reading whole pages end to end when a section-level pass would have answered the question
 - Opening broad swaths of `raw/` when targeted wiki search would have been enough
 - Writing the answer in expert-only shorthand that a careful newcomer cannot follow
