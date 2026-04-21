@@ -57,7 +57,7 @@ Answer directly without creating a page when:
 When an answer deserves to become durable wiki content:
 
 1. Create or update the synthesis page under `wiki/syntheses/`.
-2. Add the relevant supporting pages and raw sources.
+2. Add the relevant supporting pages and raw sources under `## Evidence base`, using claim-led bullets rather than a flat link dump.
 3. Update `wiki/index.md` so the new or revised synthesis is discoverable.
 4. Append the operation to `wiki/log.md`.
 

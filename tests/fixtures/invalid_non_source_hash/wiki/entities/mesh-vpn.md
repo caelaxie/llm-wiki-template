@@ -9,3 +9,18 @@ raw_sha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
 ---
 
 Mesh VPN entity lead.
+
+## Summary
+Mesh VPN summary.
+
+## Role or significance
+Mesh VPN significance.
+
+## Current understanding
+Mesh VPN understanding.
+
+## Related pages
+- [[alpha-source]]
+
+## Open questions or tensions
+Mesh VPN tension.

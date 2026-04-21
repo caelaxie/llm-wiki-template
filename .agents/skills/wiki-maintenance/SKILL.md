@@ -27,8 +27,11 @@ Use `lint` for health-check work:
 - orphan pages or weak integration
 - broken or ambiguous wikilinks
 - missing or malformed frontmatter
+- missing `source_role` or invalid `source_format`
 - missing or malformed `raw_sha256`
 - bad date formats
+- missing required section headings or missing unheaded leads
+- malformed synthesis `## Evidence base` structure
 - filename or directory violations
 - index gaps, slug drift, or collision risk
 - research gaps worth surfacing

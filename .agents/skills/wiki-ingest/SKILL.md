@@ -57,9 +57,12 @@ Do not create pages for fleeting mentions, weakly evidenced subtopics, or altern
 
 ## Source-page requirements
 
+- A newly created `source` page must include `source_role`.
+- Add `source_format`, `authors`, `published_at`, or `canonical_url` only when the raw source supports them and they improve retrieval or provenance.
 - A newly created `source` page must include `raw_sha256` immediately.
 - Compute the hash from the single canonical raw backing file rather than relying on later refresh to backfill it.
 - Preserve exactly one canonical `[[raw/...]]` backing reference in `sources`.
+- Keep related appendices, errata, benchmark sheets, or companion artifacts as separate pages rather than bundling multiple canonical raw files into one `source` page.
 
 ## Page-touch strategy
 

@@ -130,12 +130,21 @@ Rules:
 - All page types require `title`, `type`, `sources`, `created_at`, and `updated_at`.
 - `created_at` is the page creation date in `YYYY-MM-DD` format.
 - `updated_at` is the date of the last material edit in `YYYY-MM-DD` format.
+- `source` pages must include `source_role`, which classifies the source by research role.
+- `source_role` must be one of `primary`, `secondary`, `reference`, `operational`, or `informal`.
+- `source` pages may include `source_format`, which classifies the source by artifact shape.
+- `source_format`, when present, must be one of `paper`, `article`, `book`, `report`, `spec`, `documentation`, `dataset`, `benchmark`, `transcript`, `notes`, or `other`.
+- `source` pages may include `authors` as a YAML list of non-empty strings.
+- `source` pages may include `published_at` in `YYYY-MM-DD` format when an exact date is known.
+- `source` pages may include `canonical_url` as an absolute `http` or `https` URL.
 - `source` pages must include `raw_sha256`, which stores the SHA-256 digest of the single canonical `[[raw/...]]` file that backs the page.
 - Newly created `source` pages must include `raw_sha256` at creation time.
 - The creator of a new `source` page must compute and set `raw_sha256`.
 - The dedicated `refresh` workflow reconciles `raw_sha256` later and may bootstrap a missing value on an existing page during refresh.
 - `raw_sha256` must not appear on `entity`, `concept`, or `synthesis` pages.
+- `source_role`, `source_format`, `authors`, `published_at`, and `canonical_url` must not appear on `entity`, `concept`, or `synthesis` pages.
 - If an image asset under `raw/assets/` is the single canonical raw backing file for a `source` page, it is still a normal `[[raw/...]]` reference and still requires `raw_sha256`.
+- Keep the strict single-file source-page model. If a paper has an appendix, a dataset has a card, or a spec has a changelog, represent those related artifacts as separate pages rather than bundling multiple canonical raw files into one `source` page.
 
 Example non-source page frontmatter:
 
@@ -157,6 +166,12 @@ Canonical `source` page frontmatter:
 ---
 title: "WireGuard Whitepaper"
 type: "source"
+source_role: "primary"
+source_format: "paper"
+authors:
+  - "Jason A. Donenfeld"
+published_at: "2016-01-01"
+canonical_url: "https://www.wireguard.com/papers/wireguard.pdf"
 sources:
   - "[[raw/wireguard-whitepaper.md]]"
 raw_sha256: "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
@@ -196,6 +211,28 @@ Create a new page when:
 Do not create pages for fleeting mentions, weakly evidenced subtopics, or alternate phrasings of an existing page.
 
 Before creating a page, search for likely existing slugs, synonyms, and related pages in the wiki.
+
+### Entity vs concept
+
+Use `entity` for a named, persistent thing in the world or corpus.
+
+Use `concept` for an idea, mechanism, method, distinction, or claim family that can apply across multiple entities or sources.
+
+Tie-break rule:
+
+- If the page is mainly about a named thing that persists as an object of discussion, use `entity`.
+- If the page is mainly about an idea that recurs across multiple things, use `concept`.
+
+Gray-zone examples:
+
+- A protocol such as WireGuard is usually an `entity`.
+- A mesh-VPN coordination pattern is usually a `concept`.
+- A named model such as GPT-4.1 is usually an `entity`.
+- A benchmarking methodology is usually a `concept`.
+- A benchmark suite with a stable name is usually an `entity`.
+- A framework such as PyTorch is usually an `entity`.
+- A standard such as OAuth 2.0 is usually an `entity`.
+- A named method such as retrieval-augmented generation is usually a `concept`.
 
 ### Body templates
 
@@ -255,7 +292,7 @@ Recommended sentence-case headings for `concept` pages:
 
 - question or thesis
 - synthesized answer
-- citations or supporting pages
+- evidence base
 - unresolved points
 - related pages
 
@@ -263,7 +300,7 @@ Recommended sentence-case headings for `synthesis` pages:
 
 - `## Question or thesis`
 - `## Synthesized answer`
-- `## Citations or supporting pages`
+- `## Evidence base`
 - `## Unresolved points`
 - `## Related pages`
 
@@ -277,8 +314,10 @@ Recommended sentence-case headings for `synthesis` pages:
 - Footnotes are for attribution and locator detail only, not for side arguments, caveats, definitions, or overflow explanation.
 - In raw-source footnotes, put the direct `[[raw/...]]` link first, then add the shortest useful locator detail.
 - These rules apply to normal prose only. They do not change frontmatter `sources`, `Related pages`, `wiki/index.md`, or other structural link areas, which continue using normal wiki links.
-- In `synthesis` pages, the `## Citations or supporting pages` section is a plain link inventory, so list supporting `[[slug]]` and `[[raw/...]]` links inline rather than turning the section into footnoted prose.
-- `synthesis` pages should cite the supporting wiki pages and source pages they rely on.
+- In `synthesis` pages, `## Evidence base` should function as an evidence map rather than a flat bibliography.
+- Use the fixed subgroup headings `### Supports`, `### Conflicts or tensions`, and `### Gaps or missing evidence` when they are relevant.
+- Each evidence bullet should begin with a short claim fragment or question fragment, then a colon, then the supporting `[[slug]]` and `[[raw/...]]` links.
+- `synthesis` pages should cite the supporting wiki pages and source pages they rely on, but the evidence section should make the reasoning traceable rather than merely listing links.
 - New or materially updated pages should include meaningful links to the most relevant related pages whenever those relationships are known.
 - Avoid isolated pages. If a page belongs in the wiki, it should usually connect to existing entities, concepts, or syntheses.
 
@@ -386,6 +425,15 @@ Examples:
 ```md
 ## [2026-04-07] ingest | Tailscale architecture source
 ```
+
+## Migration for derived wikis
+
+If you are updating an existing wiki derived from an older version of this template:
+
+- Rename `## Citations or supporting pages` to `## Evidence base` on synthesis pages.
+- Add required `source_role` to every `source` page.
+- Add optional `source_format` only when it adds real retrieval value.
+- Keep related artifacts as separate `source` pages instead of bundling multiple canonical raw files into one page.
 
 ## Pitfalls
 

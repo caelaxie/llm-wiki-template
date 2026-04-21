@@ -27,6 +27,7 @@ When a choice is unclear, prefer these defaults:
 
 - Write for mixed technical readers. Assume curiosity and some technical literacy, but do not assume deep familiarity with every acronym, protocol, or workflow in the corpus.
 - Before writing, identify what the page needs to help the reader do, what the reader likely already knows, and whether the page mainly summarizes a source, explains an entity, explains a concept, or answers a synthesis question.
+- Apply the page-type boundary from `AGENTS.md`: named persistent things are usually `entity` pages, while recurring ideas, mechanisms, methods, distinctions, and claim families are usually `concept` pages.
 - Choose depth to match likely use. If readers likely know the topic, move quickly to distinctions, evidence, and tensions. If readers may be new, define non-obvious terms on first use and add only the minimum background needed to follow the page.
 
 ## Core style rules
@@ -99,7 +100,7 @@ For any page type, the default writing sequence is:
 
 ### Source pages
 
-- Use the lead to identify the source, its document type, and why it matters to this wiki.
+- Use the lead to identify the source, its research role, its artifact shape when relevant, and why it matters to this wiki.
 - In `## Summary`, state the source's main contribution early and plainly, then add the required nested section map.
 - Keep the section map navigational. Detailed interpretation belongs in `## Key takeaways` and `## Evidence or notable details`.
 - Preserve the source's original section numbering when it exists. If the source does not number sections, use titled nested bullets instead.
@@ -128,8 +129,9 @@ For any page type, the default writing sequence is:
 - Use the lead to restate the question or thesis and signal the kind of answer the page gives.
 - In `## Question or thesis`, phrase the question clearly and concretely.
 - In `## Synthesized answer`, answer first, then justify.
-- In `## Citations or supporting pages`, order support so a reader can follow the reasoning without reconstructing it from links alone.
-- Treat `## Citations or supporting pages` as a citation inventory rather than normal prose.
+- In `## Evidence base`, use the fixed subgroup headings from `AGENTS.md` when they are relevant.
+- Make each evidence bullet claim-led: start with a short claim fragment or question fragment, add a colon, then list the supporting `[[slug]]` and `[[raw/...]]` links.
+- Treat `## Evidence base` as an evidence map rather than normal prose.
 - In `## Unresolved points`, keep the remaining uncertainty explicit.
 
 ## Anti-patterns
