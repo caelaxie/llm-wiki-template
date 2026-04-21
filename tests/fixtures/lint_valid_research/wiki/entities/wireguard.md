@@ -1,25 +1,25 @@
 ---
-title: "Mesh VPN"
+title: "WireGuard"
 type: "entity"
 sources:
-  - "[[missing-source]]"
+  - "[[alpha-source]]"
 created_at: "2026-04-08"
 updated_at: "2026-04-08"
 ---
 
-Mesh VPN entity lead.
+WireGuard lead.
 
 ## Summary
-Mesh VPN summary.
+WireGuard summary.
 
 ## Role or significance
-Mesh VPN significance.
+WireGuard significance.
 
 ## Current understanding
-Mesh VPN understanding.
+WireGuard understanding.
 
 ## Related pages
-- [[missing-source]]
+- [[key-rotation]]
 
 ## Open questions or tensions
-Mesh VPN tension.
+WireGuard tension.

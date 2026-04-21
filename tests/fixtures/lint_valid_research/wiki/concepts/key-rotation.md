@@ -1,25 +1,25 @@
 ---
-title: "Unrelated"
+title: "Key Rotation"
 type: "concept"
 sources:
-  - "[[beta-source]]"
+  - "[[wireguard]]"
 created_at: "2026-04-08"
 updated_at: "2026-04-08"
 ---
 
-Unrelated concept lead.
+Key rotation lead.
 
 ## Summary
-Unrelated summary.
+Key rotation summary.
 
 ## Why it matters
-Unrelated matters here.
+Key rotation matters.
 
 ## Current understanding
-Unrelated understanding.
+Key rotation understanding.
 
 ## Related pages
-- [[beta-source]]
+- [[research-overview]]
 
 ## Open questions or tensions
-Unrelated tension.
+Key rotation tension.

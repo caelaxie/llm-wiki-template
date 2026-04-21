@@ -56,6 +56,9 @@ class RefreshScriptTests(unittest.TestCase):
         )
         alpha_source = (root / "wiki" / "sources" / "alpha-source.md").read_text(encoding="utf-8")
         self.assertIn("raw_sha256:", alpha_source)
+        self.assertIn('source_role: "primary"', alpha_source)
+        self.assertIn('source_format: "report"', alpha_source)
+        self.assertIn('canonical_url: "https://example.com/alpha"', alpha_source)
 
     def test_unchanged_raw_files_produce_no_changed_only_targets_after_bootstrap(self) -> None:
         root = self.copy_fixture("refresh_valid")
@@ -87,6 +90,15 @@ class RefreshScriptTests(unittest.TestCase):
         )
         alpha_source = (root / "wiki" / "sources" / "alpha-source.md").read_text(encoding="utf-8")
         self.assertIn(report["changed_raw_files"][0]["new_sha256"], alpha_source)
+
+    def test_refresh_preserves_new_source_metadata_fields(self) -> None:
+        root = self.copy_fixture("refresh_valid")
+
+        self.load_report(self.run_refresh(root))
+
+        beta_source = (root / "wiki" / "sources" / "beta-source.md").read_text(encoding="utf-8")
+        self.assertIn('source_role: "secondary"', beta_source)
+        self.assertIn('source_format: "article"', beta_source)
 
     def test_full_rebuild_reports_all_pages_even_without_drift(self) -> None:
         root = self.copy_fixture("refresh_valid")
