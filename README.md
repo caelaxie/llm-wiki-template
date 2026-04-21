@@ -12,13 +12,13 @@ You curate source material in `raw/`, then use the repo contract to turn that ma
 
 - `raw/` - curated source documents
 - `wiki/` - persistent markdown wiki and navigation surfaces
-- `AGENTS.md` - repo contract for structure, workflows, and page types
-- `STYLE_GUIDE.md` - prose and presentation guide for wiki writing
+- `AGENTS.md` - root contract for structure, workflows, and page types
+- `.agents/skills/` - repo-local skill playbooks for writing, ingest, query, and maintenance work
 
 ## Workflow
 
 1. Add curated source material to `raw/`.
-2. Follow `AGENTS.md` for wiki structure and `STYLE_GUIDE.md` for prose.
+2. Follow `AGENTS.md` for the always-on contract and load the relevant repo-local skills from `.agents/skills/`.
 3. Create or update pages in `wiki/sources/`, `wiki/entities/`, `wiki/concepts/`, and `wiki/syntheses/`.
 4. Keep `wiki/index.md` and `wiki/log.md` up to date.
 

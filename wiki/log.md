@@ -40,3 +40,13 @@ Tightened the rewritten style guide so agents can execute it with less interpret
 - added default decision rules for common writing tradeoffs
 - added a default page-writing sequence shared across page types
 - expanded the final checks to verify the guide is operational for agents
+
+## [2026-04-22] maintenance | Collapse root guidance into AGENTS plus repo-local skills
+
+Refactored the repo from a two-file guidance model into a single root contract plus repo-local skills:
+
+- rewrote `AGENTS.md` as the sole root contract for structure, schema, workflow, and completion rules
+- added `.agents/skills/wiki-writing`, `.agents/skills/wiki-ingest`, `.agents/skills/wiki-query`, and `.agents/skills/wiki-maintenance`
+- moved detailed writing and task-playbook guidance out of the root contract and into those repo-local skills
+- updated `README.md` to describe the new operating model
+- removed `STYLE_GUIDE.md`
