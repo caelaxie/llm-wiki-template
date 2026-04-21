@@ -7,6 +7,8 @@ description: Use when creating, editing, reviewing, or planning prose for typed 
 
 Use this skill before creating or materially revising wiki prose in a repository derived from this template.
 
+Gold-standard reference pages live in `examples/` next to this skill. Use them when you need a concrete shape for a strong `source`, `entity`, `concept`, or `synthesis` page.
+
 ## Purpose
 
 The goal is to make pages read like durable wiki pages rather than transient chat replies. Write clearly, directly, and efficiently. State the main point early, preserve uncertainty honestly, and keep the page easy to scan without making it shallow.
@@ -105,8 +107,8 @@ For any page type, the default writing sequence is:
 - Keep the section map navigational. Detailed interpretation belongs in `## Key takeaways` and `## Evidence or notable details`.
 - Preserve the source's original section numbering when it exists. If the source does not number sections, use titled nested bullets instead.
 - Skip boilerplate headings such as acknowledgements, references, and author notes by default. Include appendices only when they add substantive content relevant to the wiki.
-- In `## Evidence or notable details`, highlight concrete examples, evidence, scope limits, and notable absences rather than rewriting the entire source.
-- In `## Open questions`, preserve what the source leaves unclear, weakly supports, or appears to contradict.
+- In `## Evidence or notable details`, highlight concrete examples, evidence, scope limits, methodological caveats, and notable absences rather than rewriting the entire source.
+- In `## Open questions`, preserve what the source leaves unclear, weakly supports, appears to contradict, or fails to measure directly.
 
 ### Entity pages
 
@@ -126,13 +128,13 @@ For any page type, the default writing sequence is:
 
 ### Synthesis pages
 
-- Use the lead to restate the question or thesis and signal the kind of answer the page gives.
+- Use the lead to restate the question or thesis, signal the kind of answer the page gives, and add a short scope note when the answer is bounded by source set, time window, method, or corpus coverage.
 - In `## Question or thesis`, phrase the question clearly and concretely.
 - In `## Synthesized answer`, answer first, then justify.
 - In `## Evidence base`, use the fixed subgroup headings from `AGENTS.md` when they are relevant.
 - Make each evidence bullet claim-led: start with a short claim fragment or question fragment, add a colon, then list the supporting `[[slug]]` and `[[raw/...]]` links.
 - Treat `## Evidence base` as an evidence map rather than normal prose.
-- In `## Unresolved points`, keep the remaining uncertainty explicit.
+- In `## Unresolved points`, keep the remaining uncertainty explicit and preserve direct contradictions. If you privilege one interpretation in `## Synthesized answer`, say why and keep the competing evidence visible.
 
 ## Anti-patterns
 

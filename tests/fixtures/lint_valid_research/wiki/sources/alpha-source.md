@@ -15,7 +15,7 @@ created_at: "2026-04-08"
 updated_at: "2026-04-08"
 ---
 
-Alpha source lead.
+Alpha source lead. In this fixture the page matters as primary research evidence rather than as a secondary summary.
 
 ## Summary
 Alpha source summary.
@@ -27,7 +27,7 @@ Alpha source summary.
 Alpha takeaway.
 
 ## Evidence or notable details
-Alpha evidence.[^1]
+Alpha evidence, including a direct note that the fixture does not contain comparative deployment measurements.[^1]
 
 [^1]: [[raw/alpha.md]], general discussion.
 
@@ -35,4 +35,4 @@ Alpha evidence.[^1]
 - [[wireguard]]
 
 ## Open questions
-Alpha question.
+Alpha question about what the source still leaves unmeasured.

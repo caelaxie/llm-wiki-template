@@ -146,6 +146,22 @@ Rules:
 - If an image asset under `raw/assets/` is the single canonical raw backing file for a `source` page, it is still a normal `[[raw/...]]` reference and still requires `raw_sha256`.
 - Keep the strict single-file source-page model. If a paper has an appendix, a dataset has a card, or a spec has a changelog, represent those related artifacts as separate pages rather than bundling multiple canonical raw files into one `source` page.
 
+Use `source_role` to describe research use, not prestige:
+
+- `primary` for sources that directly present the main evidence, argument, measurement, or specification under study.
+- `secondary` for sources that interpret, summarize, compare, or reframe primary material.
+- `reference` for sources mainly used to define terms, normalize facts, or supply stable background context.
+- `operational` for sources that describe live procedures, implementation behavior, runbooks, or current system practice.
+- `informal` for sources that still matter but are weakly formalized, such as notes, forum posts, chats, or ad hoc writeups.
+
+Examples:
+
+- An original benchmark paper or standards document is usually `primary`.
+- A review article or analyst comparison is usually `secondary`.
+- A glossary, textbook appendix, or canonical explainer is usually `reference`.
+- Internal production docs or incident playbooks are usually `operational`.
+- Lab notes, issue threads, or transcript fragments are usually `informal`.
+
 Example non-source page frontmatter:
 
 ```yaml
@@ -256,6 +272,8 @@ Recommended sentence-case headings for `source` pages:
 - `## Related pages`
 - `## Open questions`
 
+For `source` pages, use `## Evidence or notable details` and `## Open questions` to make the source's limits explicit. Note scope limits, missing measurements, methodological caveats, outdated assumptions, and notable absences there rather than smoothing them away in summary prose.
+
 `entity` pages should include:
 
 - summary
@@ -304,6 +322,8 @@ Recommended sentence-case headings for `synthesis` pages:
 - `## Unresolved points`
 - `## Related pages`
 
+For `synthesis` pages, the unheaded lead should usually include a short scope note when the answer is meaningfully bounded by source set, time window, method, or corpus coverage.
+
 ### Citations and cross-links
 
 - Footnotes are allowed on any page type.
@@ -318,6 +338,7 @@ Recommended sentence-case headings for `synthesis` pages:
 - Use the fixed subgroup headings `### Supports`, `### Conflicts or tensions`, and `### Gaps or missing evidence` when they are relevant.
 - Each evidence bullet should begin with a short claim fragment or question fragment, then a colon, then the supporting `[[slug]]` and `[[raw/...]]` links.
 - `synthesis` pages should cite the supporting wiki pages and source pages they rely on, but the evidence section should make the reasoning traceable rather than merely listing links.
+- Use `## Unresolved points` to preserve direct contradictions and evidentiary gaps. If `## Synthesized answer` privileges one interpretation over another, say why and keep the counterevidence explicit rather than deleting it from the page.
 - New or materially updated pages should include meaningful links to the most relevant related pages whenever those relationships are known.
 - Avoid isolated pages. If a page belongs in the wiki, it should usually connect to existing entities, concepts, or syntheses.
 

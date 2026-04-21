@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -24,6 +25,15 @@ from wiki_schema import (
     split_wikilink,
     wiki_target,
 )
+
+KEBAB_CASE_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+INDEX_ENTRY_RE = re.compile(r"^\s*-\s+\[\[([^\]]+)\]\]\s+-\s+(.+?)\s*$")
+INDEX_SECTIONS = {
+    "Sources": "source",
+    "Entities": "entity",
+    "Concepts": "concept",
+    "Syntheses": "synthesis",
+}
 
 
 def add_error(errors: list[str], page_path: str, message: str) -> None:
@@ -49,6 +59,9 @@ def validate_frontmatter(page, slug_map, root: Path, errors: list[str]) -> None:
     if page.page_type not in PAGE_TYPE_DIRS:
         add_error(errors, page.rel_path, f"`type` must be one of {', '.join(sorted(PAGE_TYPE_DIRS))}")
         return
+
+    if not KEBAB_CASE_RE.match(page.slug):
+        add_error(errors, page.rel_path, "filename must use lowercase kebab-case")
 
     expected_dir = PAGE_TYPE_DIRS[page.page_type]
     if page.path.parent.name != expected_dir:
@@ -122,6 +135,7 @@ def validate_frontmatter(page, slug_map, root: Path, errors: list[str]) -> None:
 
 
 def validate_headings(page, errors: list[str]) -> None:
+    lines = page.body.splitlines()
     first_line = first_nonempty_body_line(page.body)
     if first_line is None:
         add_error(errors, page.rel_path, "page body must include an unheaded lead before section headings")
@@ -146,9 +160,10 @@ def validate_headings(page, errors: list[str]) -> None:
         )
 
     if page.page_type != "synthesis":
+        validate_related_pages(page, lines, headings, errors)
         return
 
-    lines = page.body.splitlines()
+    validate_related_pages(page, lines, headings, errors)
     section_ranges = find_section_ranges(lines, headings)
     evidence_range = section_ranges.get("Evidence base")
     if evidence_range is None:
@@ -198,6 +213,91 @@ def validate_headings(page, errors: list[str]) -> None:
                 add_error(errors, page.rel_path, "evidence bullets must begin with a short claim fragment followed by `:` and at least one wikilink")
 
 
+def validate_related_pages(page, lines: list[str], headings: list[tuple[int, str, int]], errors: list[str]) -> None:
+    section_ranges = find_section_ranges(lines, headings)
+    related_range = section_ranges.get("Related pages")
+    if related_range is None:
+        return
+
+    start, end = related_range
+    related_links: set[str] = set()
+    for line_no in range(start + 1, end):
+        line = lines[line_no - 1].strip()
+        if not line or not line.startswith("- "):
+            continue
+        match = re.search(r"\[\[([^\]]+)\]\]", line)
+        if not match:
+            continue
+        target = match.group(1).split("|", 1)[0].split("#", 1)[0].strip()
+        if target and not target.startswith("raw/"):
+            related_links.add(target)
+
+    if not related_links:
+        add_error(errors, page.rel_path, "`## Related pages` must include at least one wiki-page link")
+
+
+def validate_duplicate_titles(pages, errors: list[str]) -> None:
+    titles: dict[str, list[str]] = {}
+    for page in pages:
+        title = str(page.frontmatter.get("title", "")).strip()
+        if not title:
+            continue
+        titles.setdefault(title.casefold(), []).append(page.rel_path)
+    for paths in titles.values():
+        if len(paths) > 1:
+            joined = ", ".join(sorted(paths))
+            for path in paths:
+                add_error(errors, path, f"`title` must be unique across page types; duplicate set: {joined}")
+
+
+def parse_index(root: Path, errors: list[str]) -> dict[str, dict[str, str]]:
+    index_path = root / "wiki" / "index.md"
+    if not index_path.is_file():
+        add_error(errors, "wiki/index.md", "missing required index file")
+        return {}
+
+    sections = {page_type: {} for page_type in INDEX_SECTIONS.values()}
+    current_type = None
+    for raw_line in index_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.rstrip()
+        if line.startswith("## "):
+            current_type = INDEX_SECTIONS.get(line[3:].strip())
+            continue
+        if current_type is None:
+            continue
+        match = INDEX_ENTRY_RE.match(line)
+        if not match:
+            continue
+        slug = match.group(1).split("|", 1)[0].split("#", 1)[0].strip()
+        summary = match.group(2).strip()
+        sections[current_type][slug] = summary
+
+    return sections
+
+
+def validate_index(root: Path, pages, slug_map, errors: list[str]) -> None:
+    sections = parse_index(root, errors)
+    if not sections:
+        return
+
+    for page in pages:
+        summary = sections.get(page.page_type, {}).get(page.slug)
+        if summary is None:
+            add_error(errors, "wiki/index.md", f"missing `{page.page_type}` index entry for `[[{page.slug}]]`")
+        elif not summary.strip():
+            add_error(errors, "wiki/index.md", f"`[[{page.slug}]]` index entry must include a one-line summary")
+
+    for page_type, entries in sections.items():
+        for slug, summary in entries.items():
+            if slug not in slug_map:
+                add_error(errors, "wiki/index.md", f"index entry references missing wiki page `[[{slug}]]`")
+                continue
+            if slug_map[slug].page_type != page_type:
+                add_error(errors, "wiki/index.md", f"`[[{slug}]]` is listed under the wrong index section")
+            if not summary.strip():
+                add_error(errors, "wiki/index.md", f"`[[{slug}]]` index entry must include a one-line summary")
+
+
 def run(root: Path) -> dict[str, object]:
     pages = discover_pages(root)
     slug_map = {}
@@ -211,6 +311,8 @@ def run(root: Path) -> dict[str, object]:
     for page in pages:
         validate_frontmatter(page, slug_map, root, errors)
         validate_headings(page, errors)
+    validate_duplicate_titles(pages, errors)
+    validate_index(root, pages, slug_map, errors)
 
     return {
         "repo_root": root.as_posix(),

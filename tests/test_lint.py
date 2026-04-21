@@ -38,6 +38,12 @@ class LintScriptTests(unittest.TestCase):
         self.assertIn(old, text)
         path.write_text(text.replace(old, new), encoding="utf-8")
 
+    def replace_everywhere(self, root: Path, old: str, new: str) -> None:
+        for path in root.rglob("*.md"):
+            text = path.read_text(encoding="utf-8")
+            if old in text:
+                path.write_text(text.replace(old, new), encoding="utf-8")
+
     def test_lint_passes_on_valid_research_fixture(self) -> None:
         root = self.copy_fixture("lint_valid_research")
 
@@ -105,7 +111,7 @@ class LintScriptTests(unittest.TestCase):
         path = root / "wiki" / "sources" / "alpha-source.md"
         self.replace_in_file(
             path,
-            '## Open questions\nAlpha question.\n',
+            '## Open questions\nAlpha question about what the source still leaves unmeasured.\n',
             "",
         )
 
@@ -113,6 +119,28 @@ class LintScriptTests(unittest.TestCase):
 
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("level-2 headings must be exactly", result.stderr)
+
+    def test_lint_fails_when_filename_is_not_kebab_case(self) -> None:
+        root = self.copy_fixture("lint_valid_research")
+        old_path = root / "wiki" / "concepts" / "key-rotation.md"
+        new_path = root / "wiki" / "concepts" / "Key_Rotation.md"
+        old_path.rename(new_path)
+        self.replace_everywhere(root, "[[key-rotation]]", "[[Key_Rotation]]")
+
+        result = self.run_lint(root)
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("filename must use lowercase kebab-case", result.stderr)
+
+    def test_lint_fails_when_title_is_duplicated_across_page_types(self) -> None:
+        root = self.copy_fixture("lint_valid_research")
+        path = root / "wiki" / "entities" / "wireguard.md"
+        self.replace_in_file(path, 'title: "WireGuard"', 'title: "Alpha Source"')
+
+        result = self.run_lint(root)
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("`title` must be unique across page types", result.stderr)
 
     def test_lint_fails_when_old_synthesis_heading_is_used(self) -> None:
         root = self.copy_fixture("lint_valid_research")
@@ -148,12 +176,40 @@ class LintScriptTests(unittest.TestCase):
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("evidence bullets must begin with a short claim fragment", result.stderr)
 
+    def test_lint_fails_when_index_entry_is_missing(self) -> None:
+        root = self.copy_fixture("lint_valid_research")
+        path = root / "wiki" / "index.md"
+        self.replace_in_file(
+            path,
+            "- [[wireguard]] - Entity page for WireGuard as a stable protocol object in the corpus.\n",
+            "",
+        )
+
+        result = self.run_lint(root)
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("missing `entity` index entry for `[[wireguard]]`", result.stderr)
+
+    def test_lint_fails_when_related_pages_are_missing(self) -> None:
+        root = self.copy_fixture("lint_valid_research")
+        path = root / "wiki" / "concepts" / "key-rotation.md"
+        self.replace_in_file(
+            path,
+            "## Related pages\n- [[research-overview]]\n",
+            "## Related pages\nNo linked pages yet.\n",
+        )
+
+        result = self.run_lint(root)
+
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn("`## Related pages` must include at least one wiki-page link", result.stderr)
+
     def test_lint_fails_when_unheaded_lead_is_missing(self) -> None:
         root = self.copy_fixture("lint_valid_research")
         path = root / "wiki" / "syntheses" / "research-overview.md"
         self.replace_in_file(
             path,
-            "Research overview lead.\n\n## Question or thesis",
+            "Research overview lead. This synthesis is bounded to the current fixture corpus and does not claim broader empirical coverage beyond these example pages.\n\n## Question or thesis",
             "## Question or thesis",
         )
 

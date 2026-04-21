@@ -8,7 +8,7 @@ created_at: "2026-04-08"
 updated_at: "2026-04-08"
 ---
 
-Research overview lead.
+Research overview lead. This synthesis is bounded to the current fixture corpus and does not claim broader empirical coverage beyond these example pages.
 
 ## Question or thesis
 What does this source set establish?
@@ -27,7 +27,7 @@ The corpus suggests that key rotation matters most when implementation detail me
 - Empirical performance evidence is still missing from this corpus: [[alpha-source]]
 
 ## Unresolved points
-Further empirical work would sharpen the answer.
+Further empirical work would sharpen the answer, and any future counterevidence should remain visible here even if the synthesis keeps privileging the current interpretation.
 
 ## Related pages
 - [[wireguard]]
