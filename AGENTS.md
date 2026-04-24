@@ -38,9 +38,11 @@ This file intentionally does not duplicate the detailed playbooks from those ski
 
 - Prefer updating existing wiki pages over creating near-duplicate pages.
 - Treat `wiki/index.md` as the first navigation surface for queries and maintenance work.
+- Use `wiki/index.md` learning paths to show useful reading sequences once the wiki has enough pages.
 - Record meaningful wiki operations in `wiki/log.md`.
 - Keep wiki content in markdown.
 - Write in plain language with a professional tone. Prefer the clearest wording that preserves technical accuracy, and define non-obvious terms rather than assuming field familiarity.
+- Optimize pages for serious learning: teach the smallest useful model first, then deepen it with evidence, distinctions, examples, limits, and open questions.
 - Preserve contradictions, uncertainty, and open questions instead of forcing premature reconciliation.
 - Use bare `[[slug]]` wikilinks for wiki content pages whenever possible.
 - Use `[[raw/...]]` wikilinks for raw-source references.
@@ -257,11 +259,21 @@ Keep pages narrative and minimal. Do not add tags, scoring fields, status fields
 
 Every content page must begin with a short unheaded lead immediately after frontmatter and before the first section heading.
 
-Write pages so both informed readers and careful newcomers can use them. The lead should usually tell the reader what the page is about, why it matters, and what minimum context they need to follow the rest.
+Write pages so both informed readers and careful newcomers can use them. Each page should teach the smallest useful model first, then deepen it with evidence, distinctions, examples, limits, and open questions.
+
+The lead should usually answer three questions quickly:
+
+- What is this page about?
+- Why does it matter here?
+- What mental model or key distinction helps the reader understand the rest?
 
 Use plain language by default. Specialized terms are allowed when they improve precision, but define or ground non-obvious terms on first use instead of assuming the reader already knows them.
 
 When a page is easy to misread, surface one key distinction or common confusion early. Keep that orientation compact so the page still reads like a durable wiki page rather than a primer.
+
+Use the first required section as the fast-take area. Do not add an extra `## Fast take` heading unless the user explicitly asks, because page headings are part of the schema. Instead, make `## Summary` or `## Synthesized answer` open with the page's compact answer before adding detail.
+
+Prefer concrete examples, contrasts, and boundary statements when they speed understanding. Good pages often say what the topic is not, when it matters, where it breaks down, and what would change the current interpretation.
 
 `source` pages should include:
 
@@ -281,6 +293,8 @@ Recommended sentence-case headings for `source` pages:
 
 For `source` pages, use `## Evidence or notable details` and `## Open questions` to make the source's limits explicit. Note scope limits, missing measurements, methodological caveats, outdated assumptions, and notable absences there rather than smoothing them away in summary prose.
 
+In `## Summary`, give a one-paragraph fast take before the section map. The reader should understand the source's main contribution before reading its outline.
+
 `entity` pages should include:
 
 - summary
@@ -297,6 +311,10 @@ Recommended sentence-case headings for `entity` pages:
 - `## Related pages`
 - `## Open questions or tensions`
 
+For `entity` pages, `## Current understanding` should explain the useful model of the entity: what it does or represents, what consequences follow, what it is often confused with, and which limits or edge cases matter.
+
+When a nearby confusion would slow learning, include it inline in the lead, `## Summary`, or `## Current understanding`. Do not add a separate required heading for it.
+
 `concept` pages should include:
 
 - summary
@@ -312,6 +330,10 @@ Recommended sentence-case headings for `concept` pages:
 - `## Current understanding`
 - `## Related pages`
 - `## Open questions or tensions`
+
+For `concept` pages, `## Current understanding` should make the concept operational. Explain the mechanism, give at least one concrete example or contrast when useful, and name the boundary where the concept stops explaining the topic well.
+
+When a concept is often confused with a nearby concept, entity, method, or claim, state that boundary early. Good concept pages often say `This is not the same as...`, `Do not confuse this with...`, or `This explanation breaks down when...` in normal prose.
 
 `synthesis` pages should include:
 
@@ -330,6 +352,25 @@ Recommended sentence-case headings for `synthesis` pages:
 - `## Related pages`
 
 For `synthesis` pages, the unheaded lead should usually include a short scope note when the answer is meaningfully bounded by source set, time window, method, or corpus coverage.
+
+In `## Synthesized answer`, be decisive before being exhaustive. State the current answer, the main reason, and the most important caveat before expanding into the evidence map.
+
+Frame synthesis pages around reusable questions whenever possible. A good synthesis page should answer something the wiki is likely to need again, not merely collect notes under a topic label.
+
+Use synthesis pages for comparison and map work without adding new page types:
+
+- Comparison syntheses answer questions such as `How does X differ from Y?`, `When should X be preferred over Y?`, or `Why is X not the same as Y?`.
+- Map syntheses orient an area of the wiki, such as `How do these pages fit together?`, `What should a newcomer read first?`, or `Which concepts explain this domain?`.
+- Periodically add or refresh map syntheses when a topic area has enough pages that the index alone no longer teaches the shape of the subject.
+
+Optional recall checks may appear inline at the end of `## Current understanding`, `## Synthesized answer`, `## Unresolved points`, or `## Open questions or tensions` when they help retention. Do not add a separate `## Recall prompts` heading unless the user explicitly asks. Keep them short and concrete:
+
+```md
+Useful recall checks:
+- What distinction keeps X and Y separate?
+- What example shows the mechanism?
+- What evidence would change this answer?
+```
 
 ### Citations and cross-links
 
@@ -364,13 +405,15 @@ When the user asks to ingest a new source:
 7. Create or update the corresponding `source` page in `wiki/sources/`. If the page is newly created, include `raw_sha256` in its frontmatter immediately.
 8. Update the most relevant `entity`, `concept`, and `synthesis` pages when the source materially changes them.
 9. Create new supporting pages only when they meet the create-vs-update rules above.
-10. Add or refresh meaningful cross-links between the touched pages.
-11. Update `wiki/index.md` so it remains a useful category-organized catalog of wiki pages.
-12. Ensure each relevant index entry includes at least a link and a one-line summary.
-13. Append an entry to `wiki/log.md` describing the ingest.
-14. Update `updated_at` on every content page materially changed during ingest.
-15. Set `created_at` and `updated_at` when creating a new content page.
-16. When creating a new `source` page, compute and include `raw_sha256` in the initial frontmatter instead of relying on a later refresh to add it.
+10. Ask what the source changes in the wiki's concept graph: new distinctions, stronger examples, broken assumptions, changed comparisons, or a needed map page.
+11. Add or refresh meaningful cross-links between the touched pages.
+12. Update `wiki/index.md` so it remains a useful category-organized catalog of wiki pages.
+13. Add or update short learning paths in `wiki/index.md` when the touched pages create a useful reading sequence.
+14. Ensure each relevant index entry includes at least a link and a one-line summary.
+15. Append an entry to `wiki/log.md` describing the ingest.
+16. Update `updated_at` on every content page materially changed during ingest.
+17. Set `created_at` and `updated_at` when creating a new content page.
+18. When creating a new `source` page, compute and include `raw_sha256` in the initial frontmatter instead of relying on a later refresh to add it.
 
 For batch ingest:
 
@@ -378,7 +421,8 @@ For batch ingest:
 2. Identify overlapping entities, concepts, and syntheses once.
 3. Update the affected pages in one pass instead of repeatedly reopening the same topics source by source.
 4. Update `wiki/index.md` once after the batch.
-5. Append one batch-oriented log entry unless separate entries are genuinely clearer.
+5. Consider whether the batch creates a comparison synthesis, a map synthesis, or a learning path that would make the new material easier to learn.
+6. Append one batch-oriented log entry unless separate entries are genuinely clearer.
 
 ### Query
 
@@ -389,7 +433,7 @@ When the user asks a question:
 3. Use `raw/` selectively when the wiki lacks needed detail, when a claim needs verification, or when a new source has not yet been integrated.
 4. Synthesize the answer from the wiki instead of rediscovering everything from `raw/` by default.
 5. Cite supporting wiki pages with inline bare `[[slug]]` links and use raw footnotes in normal prose when the answer depends directly on `raw/` material.
-6. If the answer creates durable value for the knowledge base, file it back into the wiki as a `synthesis` page in `wiki/syntheses/`, then update `wiki/index.md` and `wiki/log.md`.
+6. If the answer creates durable value for the knowledge base, file it back into the wiki as a reusable-question `synthesis` page in `wiki/syntheses/`, then update `wiki/index.md` and `wiki/log.md`.
 7. If the answer is trivial or one-off, answer directly without forcing a new page.
 
 ### Refresh
@@ -429,8 +473,10 @@ When the user asks for a lint or health check:
 12. Identify near-duplicate pages caused by slug drift or weak disambiguation.
 13. Identify slug collisions that would make bare `[[slug]]` links ambiguous.
 14. Identify `wiki/index.md` entries missing category placement, links, or one-line summaries.
-15. Identify pages whose prose is structurally valid but still assumes too much field familiarity or uses avoidably dense language.
-16. Record the lint pass in `wiki/log.md` if it materially affects the wiki or future work.
+15. Identify missing or stale learning paths when a topic area has enough pages to deserve a guided route.
+16. Identify pages whose prose is structurally valid but still assumes too much field familiarity or uses avoidably dense language.
+17. Identify mature areas that need comparison syntheses or map syntheses to support faster learning.
+18. Record the lint pass in `wiki/log.md` if it materially affects the wiki or future work.
 
 `lint` remains a health check. It should not be repurposed to perform raw-drift refresh or cascading page rewrites.
 
@@ -440,6 +486,8 @@ For larger wikis, prefer programmatic scans for link graphs, frontmatter shape, 
 
 - `wiki/index.md` is the content-oriented catalog of the wiki.
 - Read `wiki/index.md` first for queries and maintenance work.
+- Include a `## Learning paths` section before the typed catalogs once the wiki has enough pages to support guided reading.
+- Keep learning paths short, ordered for comprehension, and selective; three to seven pages is usually enough.
 - Organize `wiki/index.md` by category using sections for `Sources`, `Entities`, `Concepts`, and `Syntheses`.
 - Include one entry per content page, with at least a link and a one-line summary.
 - `wiki/log.md` is the chronological, append-only record of wiki activity.
@@ -449,6 +497,10 @@ Examples:
 
 ```md
 - [[wireguard]] - Entity page for WireGuard as a minimal, public-key-based VPN design.
+```
+
+```md
+- VPN design path: [[wireguard]] -> [[cryptographic-minimalism]] -> [[why-minimal-vpn-designs-appeal-to-researchers]]
 ```
 
 ```md
@@ -487,6 +539,8 @@ Before finishing any wiki-changing task, verify that:
 - every touched content page lives in the correct typed directory
 - every touched content page begins with a short unheaded lead immediately after frontmatter
 - every touched content page uses plain language with a professional tone and defines non-obvious terms when needed
+- every touched content page teaches the smallest useful model before expanding into details
+- every touched page uses concrete examples, contrasts, or boundary statements when they materially speed understanding
 - wiki-page links use bare `[[slug]]` wherever possible
 - raw-source references use `[[raw/...]]` in frontmatter, footnotes, or other structural citation inventories as appropriate
 - downloaded image references use `![[raw/assets/...]]` rather than external URLs or plain relative Markdown paths
@@ -494,6 +548,8 @@ Before finishing any wiki-changing task, verify that:
 - no content-page slug collides with another content-page slug
 - new pages were created only when they were justified over updating an existing page
 - `wiki/index.md` reflects the current page set
+- `wiki/index.md` learning paths are added or refreshed when the touched pages create a useful reading sequence
 - `wiki/log.md` has a new entry if the wiki changed materially
+- reusable answers, comparisons, and area maps are represented as `synthesis` pages rather than new page types
 - contradictions, weak evidence, and open questions remain explicit
 - the wiki is more useful and navigable than it was before the pass

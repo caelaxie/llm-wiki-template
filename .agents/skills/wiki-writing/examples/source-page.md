@@ -14,10 +14,10 @@ created_at: "2026-04-22"
 updated_at: "2026-04-22"
 ---
 
-The WireGuard whitepaper is a primary source on how WireGuard's designers explain the protocol. It matters because it states the main design argument in the authors' own terms, so later analysis can build on the source directly instead of paraphrasing it from memory.
+The WireGuard whitepaper is a primary source on how WireGuard's designers explain the protocol. The useful mental model is that the paper treats small protocol shape as part of the security argument, so later analysis should read minimalism as an explicit design claim rather than as background style.
 
 ## Summary
-The paper argues that WireGuard keeps the protocol deliberately small as a security and maintainability choice, not just as an implementation preference.[^1] In plain terms, the authors claim that a protocol with fewer moving parts is easier to inspect, reason about, and implement safely than a VPN design with many negotiation options.[^1]
+The paper argues that WireGuard keeps the protocol deliberately small as a security and maintainability choice, not just as an implementation preference.[^1] In plain terms, the authors claim that a protocol with fewer moving parts is easier to inspect, reason about, and implement safely than a VPN design with many negotiation options.[^1] The fast take is therefore not `WireGuard is simple`, but `the paper makes simplicity part of its evidence for safety`.
 
 - 1. Introduction
   - 1.1 Design goals

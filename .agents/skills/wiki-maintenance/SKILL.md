@@ -38,6 +38,8 @@ Use `lint` for health-check work:
 - weak `## Related pages` integration
 - filename or directory violations
 - index gaps, slug drift, or collision risk
+- missing or stale learning paths for mature topic clusters
+- mature clusters that need comparison syntheses or map syntheses
 - research gaps worth surfacing
 
 ## Refresh workflow
@@ -58,20 +60,23 @@ Refresh must not:
 ## Lint workflow
 
 1. Start from `wiki/index.md` and the relevant areas of the wiki.
-2. Use programmatic scans for link graphs, frontmatter shape, filename hygiene, and index completeness when the wiki is large enough that manual inspection is weak.
-3. Inspect the wiki for structural defects, integration gaps, and stale or contradictory claims.
-4. Record the lint pass in `wiki/log.md` only if it materially affects the wiki or future work.
+2. Check whether learning paths still describe useful reading routes through the current page set.
+3. Use programmatic scans for link graphs, frontmatter shape, filename hygiene, and index completeness when the wiki is large enough that manual inspection is weak.
+4. Inspect the wiki for structural defects, integration gaps, and stale or contradictory claims.
+5. Identify page clusters that would be easier to learn from with a comparison synthesis or map synthesis.
+6. Record the lint pass in `wiki/log.md` only if it materially affects the wiki or future work.
 
 ## Cost-aware scan order
 
 Prefer a cheap structural pass before broad manual reading:
 
 1. `wiki/index.md` for the current catalog and obvious gaps
-2. file lists, slug checks, and filename hygiene across `wiki/`
-3. frontmatter validation and `sources`-graph inspection
-4. wikilink graph scans and targeted searches for ambiguous, broken, or weakly integrated links
-5. section-level reads from pages that the structural pass identified as risky
-6. full-page reads only for the pages that still need editorial judgment after the cheaper scans
+2. `wiki/index.md` learning paths for stale, missing, or poorly ordered reading routes
+3. file lists, slug checks, and filename hygiene across `wiki/`
+4. frontmatter validation and `sources`-graph inspection
+5. wikilink graph scans and targeted searches for ambiguous, broken, or weakly integrated links
+6. section-level reads from pages that the structural pass identified as risky
+7. full-page reads only for the pages that still need editorial judgment after the cheaper scans
 
 When the wiki is large, use `rg` or similar targeted scans to narrow the candidate set before opening full pages. Do not treat broad manual reading as the default lint strategy.
 
@@ -79,6 +84,8 @@ When the wiki is large, use `rg` or similar targeted scans to narrow the candida
 
 - Treat contradictions as signals to preserve, explain, or route for follow-up, not as proof that one page must be flattened into another.
 - Treat weak integration as a page-shape problem: missing related links, missing index presence, or missing synthesis context.
+- Treat missing learning paths as navigation debt when a cluster has enough pages that a reader needs a route.
+- Treat missing comparison or map syntheses as learning-structure gaps, not schema gaps.
 - Treat expert-only shorthand or needless density as a writing-quality issue when it blocks a careful newcomer from following an otherwise valid page.
 - Treat malformed frontmatter and slug issues as contract violations, not editorial preferences.
 - Treat missing `raw_sha256` on a `source` page as refresh-related maintenance, not as a reason to rewrite unrelated content.

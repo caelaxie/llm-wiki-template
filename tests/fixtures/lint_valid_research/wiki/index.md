@@ -2,6 +2,10 @@
 
 This index catalogs the current research fixture pages.
 
+## Learning paths
+
+- Fixture orientation: [[alpha-source]] -> [[wireguard]] -> [[key-rotation]] -> [[research-overview]]
+
 ## Sources
 
 - [[alpha-source]] - Source page for the alpha research artifact and its main claims.

@@ -7,7 +7,7 @@ created_at: "2026-04-22"
 updated_at: "2026-04-22"
 ---
 
-WireGuard is a VPN protocol and software family for building encrypted network tunnels between peers. It is a named system that stays stable as an object of discussion across design, implementation, and deployment questions.
+WireGuard is a VPN protocol and software family for building encrypted network tunnels between peers. The useful mental model is a named system with a deliberately small protocol surface: it is not just an example of minimalism, but the concrete artifact that makes several broader design questions discussable.
 
 ## Summary
 WireGuard is a minimal public-key-based VPN protocol and implementation family designed around a small, auditable protocol surface. A clear definition helps separate the protocol itself from narrower concepts such as cryptographic minimalism or protocol-comparison questions.
@@ -18,7 +18,7 @@ WireGuard matters here because it anchors several recurring research questions a
 ## Current understanding
 WireGuard is both a concrete protocol and a source of broader design ideas. One useful early distinction is between the protocol itself and the ideas people use to explain it. WireGuard is the protocol; reusable ideas such as cryptographic minimalism can also apply elsewhere.
 
-The entity framing also helps separate claims about WireGuard from claims about what minimal VPN designs generally imply. That distinction matters because some conclusions may travel across systems, while others belong only to WireGuard's particular design and implementation choices.
+The entity framing also helps separate claims about WireGuard from claims about what minimal VPN designs generally imply. For example, “WireGuard has a small protocol surface” is a claim about this entity, while “small protocol surfaces are easier to audit” is a broader concept-level claim. That distinction matters because some conclusions may travel across systems, while others belong only to WireGuard's particular design and implementation choices.
 
 ## Related pages
 - [[cryptographic-minimalism]]

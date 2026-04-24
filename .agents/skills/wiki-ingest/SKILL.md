@@ -38,9 +38,11 @@ Before touching wiki content:
 3. Create or update that `source` page first.
 4. Update the most relevant `entity`, `concept`, and `synthesis` pages only where the new source materially changes the wiki's current understanding.
 5. Create new supporting pages only when the topic is central, recurring, or clearly deserves its own durable synthesis.
-6. Add or refresh meaningful cross-links between all touched pages.
-7. Update `wiki/index.md` once the touched page set is stable.
-8. Append the ingest entry to `wiki/log.md`.
+6. Ask what the source changes in the wiki's concept graph: new distinctions, stronger examples, broken assumptions, changed comparisons, or a needed map page.
+7. Add or refresh meaningful cross-links between all touched pages.
+8. Update `wiki/index.md` once the touched page set is stable.
+9. Add or refresh learning paths in `wiki/index.md` when the touched pages create a useful reading sequence.
+10. Append the ingest entry to `wiki/log.md`.
 
 For image-backed raw sources:
 
@@ -61,6 +63,7 @@ Create a new page when:
 - the topic is central to the source, not just a passing mention
 - the topic recurs across sources and would otherwise be awkwardly buried
 - a durable synthesis question deserves its own page
+- a comparison or map synthesis would make an existing cluster of pages easier to learn
 
 Do not create pages for fleeting mentions, weakly evidenced subtopics, or alternate phrasings of an existing page.
 
@@ -81,10 +84,13 @@ Do not create pages for fleeting mentions, weakly evidenced subtopics, or altern
 - Keep the touched set narrow. Update only the pages materially changed by the new evidence.
 - If several new sources overlap, read them first, identify shared concepts once, and then update the affected pages in one pass.
 - When rewriting prose, keep it in plain language with a professional tone. Define non-obvious terms on first use and add only the minimum orientation needed for a careful newcomer to follow the page.
+- Preserve learning speed: add useful examples, nearby confusions, and boundary statements where the new source clarifies them.
+- Prefer reusable-question syntheses over broad topic-label syntheses.
 
 ## Index and log discipline
 
 - `wiki/index.md` should remain a category-organized catalog with one entry per content page.
+- `wiki/index.md` should include short learning paths when a set of pages has a useful reading order.
 - Each relevant index entry should include at least a link and a one-line summary.
 - `wiki/log.md` should record the ingest after the page set is stable.
 - Use one batch-oriented log entry for batch ingest unless separate entries are genuinely clearer.
@@ -95,6 +101,7 @@ Do not create pages for fleeting mentions, weakly evidenced subtopics, or altern
 - Updating prose without also updating `updated_at`
 - Rewriting a page in field shorthand that assumes too much background or drifts into tutorial-style exposition
 - Touching several pages but forgetting to refresh `wiki/index.md`
+- Adding pages but leaving the learning path unclear when the page cluster is now big enough to need one
 - Adding a new `source` page without `raw_sha256`
 - Treating an image-backed source as if every interpreted relationship in the image were explicit text
 - Leaving a newly created page weakly linked or invisible from the rest of the wiki
@@ -110,4 +117,5 @@ Before finishing an ingest pass, verify:
 - new pages were justified over updating existing ones
 - new or materially updated pages have meaningful related-page links
 - `wiki/index.md` reflects the current page set
+- `wiki/index.md` learning paths are added or refreshed when useful
 - `wiki/log.md` records the ingest if the wiki changed materially

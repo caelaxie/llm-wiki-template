@@ -8,7 +8,7 @@ The basic model is `raw/ -> wiki/`.
 
 You curate source material in `raw/`, then use the repo contract to turn that material into durable wiki pages under `wiki/`. As the corpus grows, the wiki becomes the main knowledge layer, while `raw/` remains the backing source layer.
 
-The writing model is plain-language, answer-first wiki prose: technically accurate, professionally toned, and readable both by people who already know the field and by careful newcomers.
+The writing model is plain-language, answer-first wiki prose: teach the smallest useful model first, then deepen it with evidence, distinctions, examples, limits, and open questions.
 
 ## Repo structure
 
@@ -22,7 +22,8 @@ The writing model is plain-language, answer-first wiki prose: technically accura
 1. Add curated source material to `raw/`.
 2. Follow `AGENTS.md` for the always-on contract and load the relevant repo-local skills from `.agents/skills/`.
 3. Create or update pages in `wiki/sources/`, `wiki/entities/`, `wiki/concepts/`, and `wiki/syntheses/`.
-4. Keep `wiki/index.md` and `wiki/log.md` up to date.
+4. Use synthesis pages for reusable questions, comparisons, and topic maps.
+5. Keep `wiki/index.md`, learning paths, and `wiki/log.md` up to date.
 
 ## Operations
 

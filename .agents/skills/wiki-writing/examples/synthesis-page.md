@@ -9,13 +9,13 @@ created_at: "2026-04-22"
 updated_at: "2026-04-22"
 ---
 
-This synthesis asks why minimal VPN designs attract sustained research attention. Here, a minimal VPN design means a design that intentionally keeps the protocol small and limits optional complexity. The answer is based on a WireGuard-focused source set and does not yet include broader comparative deployment studies, so it is bounded to how this evidence base frames the question rather than to the full VPN literature.
+This synthesis asks why minimal VPN designs attract sustained research attention. The useful mental model is visibility: when a protocol is small, researchers can more easily see what changed, why it changed, and what evidence would support or weaken the design argument. The answer is based on a WireGuard-focused source set and does not yet include broader comparative deployment studies, so it is bounded to how this evidence base frames the question rather than to the full VPN literature.
 
 ## Question or thesis
 Why do minimal VPN designs attract strong research interest?
 
 ## Synthesized answer
-The available material suggests that minimal VPN designs appeal to researchers because they make protocol tradeoffs easier to inspect. Minimal designs often make it easier to trace a line from design goal to mechanism to claimed benefit, which makes them attractive research objects even when their operational superiority remains unsettled.
+The available material suggests that minimal VPN designs appeal to researchers because they make protocol tradeoffs easier to inspect. The main reason is that a smaller design makes it easier to trace a line from design goal to mechanism to claimed benefit. The main caveat is that research clarity is not the same thing as operational superiority across every deployment setting.
 
 The attraction is therefore not “minimal is always better.” It is that minimal systems often make the design stakes unusually visible: what was simplified, what was excluded, and what kinds of evidence are still missing.
 

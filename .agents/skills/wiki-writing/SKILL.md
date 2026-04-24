@@ -7,11 +7,13 @@ description: Use when creating, editing, reviewing, or planning prose for typed 
 
 Use this skill before creating or materially revising wiki prose in a repository derived from this template.
 
-Gold-standard reference pages live in `examples/` next to this skill. Use them when you need a concrete shape for a strong `source`, `entity`, `concept`, or `synthesis` page.
+Gold-standard reference pages live in `examples/` next to this skill. Use them when you need a concrete shape for a strong `source`, `entity`, `concept`, or `synthesis` page, including comparison and map synthesis subpatterns.
 
 ## Purpose
 
 The goal is to make pages read like durable wiki pages rather than transient chat replies. Write in plain language with a professional tone. State the main point early, preserve uncertainty honestly, and keep the page easy to scan without making it shallow.
+
+For serious learning, the page should teach the smallest useful model first. Give the reader a compact way to understand the topic, then deepen it with evidence, distinctions, concrete examples, limits, and open questions.
 
 ## Default decisions
 
@@ -21,6 +23,8 @@ When a choice is unclear, prefer these defaults:
 - Prefer a direct claim over a cautious setup sentence unless the evidence is genuinely uncertain.
 - Prefer defining the term now over linking away and assuming the reader will click.
 - Prefer one concrete example over several abstract sentences.
+- Prefer a sharp contrast or boundary statement over another broad paraphrase.
+- Prefer a reusable question over a vague synthesis topic when creating synthesis pages.
 - Prefer plain wording over field-specific shorthand unless the specialized term is the clearest accurate choice.
 - Prefer preserving an open question over implying certainty that the sources do not support.
 - Prefer cutting a repeated sentence over keeping it for emphasis.
@@ -36,9 +40,18 @@ When a choice is unclear, prefer these defaults:
 
 ## Core style rules
 
+Teach the model first:
+
+- Start with the simplest accurate model that makes the topic usable.
+- Explain what the topic is not when that prevents a common confusion.
+- Use concrete examples or contrasts when they make an abstract idea faster to grasp.
+- After the model is clear, add caveats, edge cases, and evidence limits.
+- For entity and concept pages, include one nearby confusion or boundary when it materially improves learning.
+
 Answer early:
 
 - State the main point in the lead or first section, not after several setup paragraphs.
+- Use the first required section as the page's fast take; do not add a non-schema `## Fast take` heading unless the user asks.
 - On synthesis pages, give the synthesized answer before the supporting reasoning.
 - On source pages, summarize the source's contribution before listing details.
 
@@ -79,12 +92,13 @@ Express uncertainty honestly:
 ## Structure and formatting
 
 - The lead should usually say what the page covers, why it matters, the main takeaway, and any prerequisite context the reader truly needs.
-- The first screen should usually answer three questions quickly: what is this, why does it matter, and what minimal context does a new reader need before the details.
+- The first screen should usually answer three questions quickly: what is this, why does it matter, and what mental model or key distinction helps a new reader understand the details.
 - Prefer short paragraphs by default. One paragraph should usually carry one main idea.
 - Split paragraphs that mix explanation, evidence, and caveat in the same block.
 - Use headings to guide the reader, not decorate the page.
 - Use sentence-case headings and keep them functional.
 - Use lists only when they improve comprehension. Do not convert normal explanation into bullets just to make the page look structured.
+- Optional recall checks should stay inline inside an existing required section. Do not add `## Recall prompts`, `### Recall`, or any other non-schema heading unless the user asks.
 - Follow `AGENTS.md` for required section families and repo-wide Markdown formatting rules.
 
 ## Citations in prose
@@ -105,14 +119,15 @@ For any page type, the default writing sequence is:
 
 1. Lead with the answer, definition, or contribution.
 2. Explain why the page matters.
-3. Add supporting detail in descending importance.
-4. Preserve uncertainty and tensions.
-5. End with related pages and open questions as required by `AGENTS.md`.
+3. Give the smallest useful model, including one contrast or example when helpful.
+4. Add supporting detail in descending importance.
+5. Preserve uncertainty and tensions.
+6. End with related pages and open questions as required by `AGENTS.md`.
 
 ### Source pages
 
 - Use the lead to identify the source, its research role, its artifact shape when relevant, and why it matters to this wiki in terms a new reader can follow.
-- In `## Summary`, state the source's main contribution early and plainly, then add the required nested section map.
+- In `## Summary`, state the source's main contribution early and plainly in one paragraph, then add the required nested section map.
 - Keep the section map navigational. Detailed interpretation belongs in `## Key takeaways` and `## Evidence or notable details`.
 - Preserve the source's original section numbering when it exists. If the source does not number sections, use titled nested bullets instead.
 - Skip boilerplate headings such as acknowledgements, references, and author notes by default. Include appendices only when they add substantive content relevant to the wiki.
@@ -124,7 +139,8 @@ For any page type, the default writing sequence is:
 - Use the lead to say plainly what the entity is, why it matters here, and any one distinction a new reader needs before the page gets more specific.
 - In `## Summary`, define the entity before describing debates around it.
 - In `## Role or significance`, explain why the entity matters here, not only in the outside world.
-- In `## Current understanding`, group related ideas together and move from the most important points to qualifying detail. Surface one common confusion early when it materially improves understanding.
+- In `## Current understanding`, group related ideas together and move from the useful model to qualifying detail: what the entity does or represents, what follows from that, what it is often confused with, and which limits or edge cases matter.
+- If a common confusion would mislead the reader, state it directly in normal prose instead of hiding it in related links.
 - In `## Open questions or tensions`, name unresolved issues directly instead of burying them in surrounding explanation.
 
 ### Concept pages
@@ -132,18 +148,25 @@ For any page type, the default writing sequence is:
 - Use the lead to define the concept in plain language before expanding it.
 - In `## Summary`, give the core idea in a way a new reader can follow.
 - In `## Why it matters`, connect the concept to actual questions the wiki helps answer.
-- In `## Current understanding`, distinguish the concept from nearby terms when that prevents confusion, and do it early rather than after several paragraphs of setup.
+- In `## Current understanding`, make the concept operational. Explain the mechanism, distinguish it from nearby terms when that prevents confusion, give at least one concrete example or contrast when useful, and name the boundary where the concept stops explaining the topic well.
+- If useful, end `## Current understanding` with short recall checks that test the core distinction, example, or boundary.
 - In `## Open questions or tensions`, state where the concept's boundaries, usefulness, or interpretation remain unsettled.
 
 ### Synthesis pages
 
 - Use the lead to restate the question or thesis, signal the kind of answer the page gives, define any non-obvious key term that the reader needs immediately, and add a short scope note when the answer is bounded by source set, time window, method, or corpus coverage.
-- In `## Question or thesis`, phrase the question clearly and concretely.
-- In `## Synthesized answer`, answer first, then justify.
+- In `## Question or thesis`, phrase the question clearly and concretely. Prefer questions a future reader would actually ask over broad topic labels.
+- In `## Synthesized answer`, answer first, then justify. State the current answer, the main reason, and the most important caveat before expanding into supporting detail.
 - In `## Evidence base`, use the fixed subgroup headings from `AGENTS.md` when they are relevant.
 - Make each evidence bullet claim-led: start with a short claim fragment or question fragment, add a colon, then list the supporting `[[slug]]` and `[[raw/...]]` links.
 - Treat `## Evidence base` as an evidence map rather than normal prose.
 - In `## Unresolved points`, keep the remaining uncertainty explicit and preserve direct contradictions. If you privilege one interpretation in `## Synthesized answer`, say why and keep the competing evidence visible.
+
+Synthesis subpatterns:
+
+- Use comparison syntheses for questions such as `How does X differ from Y?`, `When should X be preferred over Y?`, and `Why is X not the same as Y?`.
+- Use map syntheses for questions such as `How do these pages fit together?`, `What should a newcomer read first?`, and `Which concepts explain this domain?`.
+- Refresh or add map syntheses when a topic area has enough pages that `wiki/index.md` no longer teaches the shape of the subject by itself.
 
 ## Anti-patterns
 
@@ -156,6 +179,7 @@ For any page type, the default writing sequence is:
 - Avoid generic bullets that replace explanation with vague phrases.
 - Avoid inflated prose that sounds professional only because it is abstract, formal, or jargon-heavy.
 - Avoid vague claims such as `This is important because it affects many things`.
+- Avoid adding new schema-like headings for recall checks, comparisons, or maps. Use the existing required sections.
 
 ## Practical checks
 
@@ -164,7 +188,12 @@ Before finishing a material writing pass, check:
 - the lead exists and states the page's main value early
 - the page uses only the required section families from `AGENTS.md` unless the user asked for a different structure
 - the page defines the topic before diving into nuance
+- the page teaches the smallest useful model before expanding into details
 - the first screen contains a real answer or summary, not only setup
+- useful examples, contrasts, or boundary statements appear where they speed learning
+- synthesis pages are framed as reusable questions when possible
+- comparison and map syntheses are considered for mature topic areas
+- recall checks, when used, stay inside existing required sections
 - a careful newcomer could follow the lead without outside explanation
 - paragraphs are short enough to scan comfortably
 - bullets are used only where they improve comprehension

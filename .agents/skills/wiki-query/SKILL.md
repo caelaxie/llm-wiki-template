@@ -16,9 +16,10 @@ The goal of query work is to answer from the accumulated wiki first, use `raw/` 
 Before answering a substantive question:
 
 1. Read `wiki/index.md` first.
-2. Scan the most relevant existing pages before inventing a new framing.
-3. Scan recent relevant entries in `wiki/log.md` when freshness, recent ingest work, or recently changed syntheses may matter.
-4. If `wiki/index.md` is not enough, run a targeted search across `wiki/` for likely slugs, synonyms, entities, concepts, and question phrases before touching `raw/`.
+2. Use any relevant learning path in `wiki/index.md` to understand the intended reading order before opening scattered pages.
+3. Scan the most relevant existing pages before inventing a new framing.
+4. Scan recent relevant entries in `wiki/log.md` when freshness, recent ingest work, or recently changed syntheses may matter.
+5. If `wiki/index.md` is not enough, run a targeted search across `wiki/` for likely slugs, synonyms, entities, concepts, and question phrases before touching `raw/`.
 
 ## Query workflow
 
@@ -80,6 +81,7 @@ Do not default to `raw/` when the wiki already contains a good answer.
 - Give the answer early rather than rebuilding the topic from scratch.
 - Write in plain language with a professional tone, and define non-obvious terms when the answer would otherwise assume field familiarity.
 - Use the wiki's own page structure and terminology where that helps the answer stay aligned with the repo.
+- Preserve the useful mental model, nearby confusions, and boundaries from the wiki instead of flattening them into generic explanation.
 - Make uncertainty explicit if the wiki or sources are mixed, partial, or dated.
 - If the answer depends on both wiki pages and raw material, prefer inline `[[slug]]` links plus raw footnotes rather than replacing everything with raw citations.
 - Say when the answer is bounded by the current corpus, recent ingest state, or incomplete integration rather than implying broader coverage than the wiki actually has.
@@ -101,6 +103,8 @@ Create or update a `synthesis` page when:
 - the answer combines multiple existing pages into a durable conclusion
 - the answer would make the wiki materially easier to navigate later
 - the answer preserves an important tension, contradiction, or scope boundary that would otherwise stay trapped in chat
+- the answer is a useful comparison, such as how two ideas differ or when one applies over another
+- the answer maps a topic area and would help future readers know what to read first
 
 Answer directly without creating a page when:
 
@@ -113,11 +117,12 @@ Answer directly without creating a page when:
 When an answer deserves to become durable wiki content:
 
 1. Create or update the synthesis page under `wiki/syntheses/`.
-2. Use the synthesis lead to state the answer in plain language, define any non-obvious key term the reader needs immediately, and add a short scope note when the conclusion is materially bounded.
-3. Add the relevant supporting pages and raw sources under `## Evidence base`, using claim-led bullets rather than a flat link dump.
-4. Keep contradictions or unresolved conflicts visible in `## Unresolved points` even when the synthesis privileges one interpretation.
-5. Update `wiki/index.md` so the new or revised synthesis is discoverable.
-6. Append the operation to `wiki/log.md`.
+2. Frame the synthesis as a concrete reusable question unless an explicit thesis is clearer.
+3. Use the synthesis lead to state the answer in plain language, define any non-obvious key term the reader needs immediately, and add a short scope note when the conclusion is materially bounded.
+4. Add the relevant supporting pages and raw sources under `## Evidence base`, using claim-led bullets rather than a flat link dump.
+5. Keep contradictions or unresolved conflicts visible in `## Unresolved points` even when the synthesis privileges one interpretation.
+6. Update `wiki/index.md` so the new or revised synthesis is discoverable, including learning paths when the synthesis becomes part of a useful reading route.
+7. Append the operation to `wiki/log.md`.
 
 Before creating a new synthesis page, search for an existing synthesis, concept, or entity page that already carries the question and update that page instead of creating a near-duplicate.
 
@@ -132,6 +137,8 @@ Before creating a new synthesis page, search for an existing synthesis, concept,
 - Writing the answer in expert-only shorthand that a careful newcomer cannot follow
 - Quoting raw material directly without integrating it into the wiki's existing concepts
 - Creating a new synthesis page for a trivial answer
+- Creating a synthesis page with a vague topic title when a reusable question would make it easier to learn from later
 - Creating a new synthesis page when an existing page should have been updated
 - Leaving a durable answer out of `wiki/index.md`
+- Leaving a new comparison or map synthesis out of relevant learning paths
 - Flattening mixed evidence into a false certainty
